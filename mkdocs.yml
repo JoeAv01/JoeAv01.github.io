@@ -1,7 +1,7 @@
 site_name: JoeAv's blog
-site_url: https://joeav01.github.io/
+site_url: https://joeav01.github.io
 site_description: This is JoeAv's blog.
-repo_url: https://github.com/joeav01/joeav01.github.io/
+repo_url: https://github.com/joeav01/joeav01.github.io
 repo_name: joeav01/joeav01.github.io
 site_author: JoeAv
 
@@ -44,7 +44,7 @@ markdown_extensions:
   - pymdownx.tasklist
   
 nav:
-  - Home: Home.md
+  - Home: index.md
 
   - Self-Learning:
       - Index: Self-Learning/Index.md

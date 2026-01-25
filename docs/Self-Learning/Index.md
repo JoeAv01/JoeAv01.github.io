@@ -1,1 +1,1 @@
-## In this section, I'll post my notes and experience during my self-learning.
+In this section, I'll post my notes and experience during my self-learning.
