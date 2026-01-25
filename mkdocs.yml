@@ -1,0 +1,7 @@
+site_name: JoeAv's blog
+site_url: https://joeav01.github.io/
+site_description: This is JoeAv's blog.
+site_author: JoeAv
+
+theme:
+  name: "material"
