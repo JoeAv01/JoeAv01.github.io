@@ -1,8 +1,63 @@
 site_name: JoeAv's blog
 site_url: https://joeav01.github.io/
 site_description: This is JoeAv's blog.
+repo_url: https://github.com/joeav01/joeav01.github.io/
+repo_name: joeav01/joeav01.github.io
 site_author: JoeAv
 
 theme:
   name: "material"
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+  - git-committers:
+      repository: joeav01/joeav01.github.io  
+      branch: main
+      docs_path: docs
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.tasklist
   
+nav:
+  - Home: Home.md
+
+  - Self-Learning:
+      - Index: Self-Learning/Index.md
+
+  - ZJU-Courses:
+      - Index: ZJU-Courses/Index.md
+
+  - Lab:
+      - Index: Lab/Index.md
+
+  - Recommendations:
+      - Index: Recommendations/Index.md

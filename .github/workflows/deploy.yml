@@ -1,0 +1,43 @@
+name: Deploy MkDocs Site
+
+on:
+  # 触发条件：推送到 main 分支时自动运行
+  push:
+    branches: [ "main" ]
+  
+  # 手动触发选项（可选）
+  workflow_dispatch:
+
+# 权限设置
+permissions:
+  contents: write  # 允许写入内容（用于推送）
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # 使用最新版 Ubuntu 系统
+    
+    steps:
+      # 步骤1：检出代码
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取完整历史记录，用于版本信息
+      
+      # 步骤2：设置 Python 环境
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  # 指定 Python 版本
+      
+      # 步骤3：安装依赖
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs mkdocs-material
+          # 如果需要其他插件，在这里添加
+          # pip install mkdocs-git-revision-date-localized-plugin
+          # pip install mkdocs-minify-plugin
+      
+      # 步骤4：部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
