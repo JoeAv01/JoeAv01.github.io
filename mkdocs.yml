@@ -7,6 +7,8 @@ site_author: JoeAv
 
 theme:
   name: "material"
+  logo: assets/icons/logo.jpg
+  favicon: assets/icons/favicon.ico
   features:
     - navigation.tabs
     - navigation.sections
@@ -15,18 +17,19 @@ theme:
     - search.suggest
     - search.highlight
   palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
     - scheme: default
       primary: indigo
       accent: indigo
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - scheme: slate
-      primary: indigo
-      accent: indigo
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
 
 plugins:
   - search
@@ -42,6 +45,12 @@ markdown_extensions:
       permalink: true
   - pymdownx.superfences
   - pymdownx.tasklist
+
+extra_javascript:
+  - javascripts/open_new_tab.js
+
+extra_css:
+  - stylesheets/extra.css
   
 nav:
   - Home: index.md
