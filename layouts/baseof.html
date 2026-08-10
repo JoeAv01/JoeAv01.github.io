@@ -12,15 +12,8 @@
     {{- partial "head.html" . }}
 </head>
 
-{{- $homeBackgroundURL := "" }}
-{{- if .IsHome }}
-    {{- with resources.Get "images/home-background.png" }}
-        {{- $homeBackgroundURL = (.Resize "1920x webp q82").RelPermalink }}
-    {{- end }}
-{{- end }}
-
 {{- if (or (ne .Kind `page`) (eq .Layout `archives`) (eq .Layout `search`)) }}
-<body class="list{{ if .IsHome }} home-page{{ end }}" id="top"{{ with $homeBackgroundURL }} style="--home-background-image: url('{{ . }}');"{{ end }}>
+<body class="list" id="top">
 {{- else }}
 <body id="top">
 {{- end }}
