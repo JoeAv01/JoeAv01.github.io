@@ -22,6 +22,7 @@
         {{- block "main" . }}{{ end }}
     </main>
     {{- if .IsHome }}
+        {{- partial "home-gif.html" . }}
         {{- partial "site-stats.html" . }}
     {{- end }}
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}

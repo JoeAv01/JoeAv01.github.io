@@ -1,0 +1,12 @@
+.home-gif {
+  margin: 1.5rem auto 0.5rem;
+  padding: 0 var(--gap);
+  text-align: center;
+}
+
+.home-gif img {
+  width: min(280px, 70vw);
+  height: auto;
+  margin: 0 auto;
+  border-radius: var(--radius);
+}
