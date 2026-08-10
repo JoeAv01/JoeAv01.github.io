@@ -1,0 +1,11 @@
+{{- $posts := where site.RegularPages "Section" "posts" -}}
+<p class="recent-update">
+  <strong>最近更新：</strong>
+  {{- with first 1 ($posts.ByLastmod.Reverse) -}}
+    {{- range . -}}
+      <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{- end -}}
+  {{- else -}}
+    <span>暂无文章</span>
+  {{- end -}}
+</p>
