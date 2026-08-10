@@ -1,0 +1,17 @@
+:root {
+  --content-link-color: #3f8f68;
+  --content-link-hover-color: #2f6f50;
+}
+
+:root[data-theme="dark"] {
+  --content-link-color: #86d7a3;
+  --content-link-hover-color: #a7e8bd;
+}
+
+.md-content a:not(.anchor) {
+  color: var(--content-link-color);
+}
+
+.md-content a:not(.anchor):hover {
+  color: var(--content-link-hover-color);
+}
