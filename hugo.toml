@@ -11,3 +11,6 @@ defaultContentLanguageInSubdir = false
 
 [params]
   mainSections = ["posts"]
+  [params.label]
+    icon = "images/avatar.jpg"
+    iconHeight = 32
