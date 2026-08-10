@@ -3,7 +3,7 @@
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.68)),
     var(--home-background-image);
-  background-position: center;
+  background-position: center 42%;
   background-repeat: no-repeat;
   background-size: cover;
 }
