@@ -1,0 +1,11 @@
+{{- $pages := site.RegularPages -}}
+{{- $totalWords := 0 -}}
+{{- range $pages -}}
+  {{- $totalWords = add $totalWords .WordCount -}}
+{{- end -}}
+<p class="site-stats">
+  <strong>站点统计：</strong>
+  <span>{{ len $pages }} 个页面</span>
+  <span> · {{ $totalWords }} 字</span>
+  <span> · {{ with site.Params.siteStartDate }}{{ $startDate := time.AsTime . }}{{ $elapsedDays := div (sub time.Now.Unix $startDate.Unix) 86400 }}已运行 {{ math.Max $elapsedDays 0 }} 天{{ else }}尚未上线{{ end }}</span>
+</p>

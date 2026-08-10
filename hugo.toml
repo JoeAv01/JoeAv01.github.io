@@ -2,6 +2,7 @@ title = "JoeAv‘s Blog"
 theme = "PaperMod"
 defaultContentLanguage = "zh"
 defaultContentLanguageInSubdir = false
+hasCJKLanguage = true
 
 [languages]
   [languages.zh]
