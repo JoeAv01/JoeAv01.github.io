@@ -46,6 +46,6 @@ hasCJKLanguage = true
     pageRef = "/friends"
     weight = 40
   [[menus.main]]
-    name = "搜索"
+    name = "Search"
     pageRef = "/search"
     weight = 50
