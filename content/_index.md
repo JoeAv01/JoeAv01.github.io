@@ -11,5 +11,3 @@ title: "首页"
 ---
 
 {{< recent-update >}}
-
-{{< site-stats >}}

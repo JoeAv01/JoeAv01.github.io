@@ -1,0 +1,7 @@
+.site-stats {
+  margin: 0.5rem auto 1rem;
+  color: var(--secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: center;
+}
