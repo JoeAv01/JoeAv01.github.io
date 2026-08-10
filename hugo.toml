@@ -8,3 +8,9 @@ defaultContentLanguageInSubdir = false
     label = "中文"
     locale = "zh-CN"
     weight = 1
+
+[params]
+  mainSections = ["posts"]
+  [params.homeInfoParams]
+    Title = "JoeAv‘s Blog"
+    Content = "这里是首页简介的临时内容，之后可以替换为你的正式介绍。"
