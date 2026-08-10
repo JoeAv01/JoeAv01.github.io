@@ -2,6 +2,6 @@
 title: "首页"
 ---
 
-# JoeAv‘s Blog
+# Welcome to JoeAv‘s Blog!
 
-这里是首页简介的临时内容，之后可以替换为你的正式介绍。
+各位好，这里是JoeAv，ZJU软件工程专业在读生，欢迎来看我的博客 (>ω<)ﾉ♡
