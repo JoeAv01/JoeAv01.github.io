@@ -30,6 +30,22 @@ hasCJKLanguage = true
 
 [menus]
   [[menus.main]]
+    name = "Posts"
+    pageRef = "/posts"
+    weight = 10
+  [[menus.main]]
+    name = "ZJU-Courses"
+    pageRef = "/zju-courses"
+    weight = 20
+  [[menus.main]]
+    name = "CSdiy"
+    pageRef = "/csdiy"
+    weight = 30
+  [[menus.main]]
+    name = "Friends"
+    pageRef = "/friends"
+    weight = 40
+  [[menus.main]]
     name = "搜索"
     pageRef = "/search"
-    weight = 10
+    weight = 50
