@@ -12,4 +12,5 @@
   background-image:
     linear-gradient(rgba(29, 30, 32, 0.72), rgba(29, 30, 32, 0.72)),
     var(--home-background-image);
+  background-position: center 42%;
 }
