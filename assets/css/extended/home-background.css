@@ -1,0 +1,15 @@
+.home-page {
+  background-color: var(--theme);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.68)),
+    var(--home-background-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+:root[data-theme="dark"] .home-page {
+  background-image:
+    linear-gradient(rgba(29, 30, 32, 0.72), rgba(29, 30, 32, 0.72)),
+    var(--home-background-image);
+}
