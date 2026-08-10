@@ -10,6 +10,10 @@
 
 <head>
     {{- partial "head.html" . }}
+    {{- $noop := .WordCount }}
+    {{- if .Page.Store.Get "hasMath" }}
+    <link rel="stylesheet" href="{{ "katex/katex.min.css" | relURL }}">
+    {{- end }}
 </head>
 
 {{- if (or (ne .Kind `page`) (eq .Layout `archives`) (eq .Layout `search`)) }}
