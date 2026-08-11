@@ -13,9 +13,9 @@ weight: 10
 
 ---
 
-!!! note "有用的东西"
-- [NoughtQ 的笔记](https://note.noughtq.top/algo/fds/)
-- [暄暄的笔记](https://xuan-insr.github.io/math_ds_algo/getting_started/)
-- [鹤翔万里的笔记](https://note.tonycrane.cc/cs/algorithm/ds/)
+> [!NOTE] 有用的东西
+> - [NoughtQ 的笔记](https://note.noughtq.top/algo/fds/)
+> - [暄暄的笔记](https://xuan-insr.github.io/math_ds_algo/getting_started/)
+> - [鹤翔万里的笔记](https://note.tonycrane.cc/cs/algorithm/ds/)
 
 当然，98 上 fds 的笔记和相关资料还有很多，这里不再列举。不过今年新增了 segment tree 和 RobinHood hash 的内容，老的笔记没有，需要注意。

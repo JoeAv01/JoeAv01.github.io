@@ -12,8 +12,8 @@ title: "C程序设计基础及实验"
 
 ---
 
-!!! note "有用的东西"
-    - [历年卷(98上的)](https://www.cc98.org/topic/4932368)
-    - [理论题知识点](https://mubu.com/doc/DvVCp41D7-)
-    - [琐碎知识点整理](https://note.isshikih.top/cour_note/D1QD_CXiaoCheng)
-    - [易错题](https://note.tonycrane.cc/cs/pl/c_cpp/c/)
+> [!NOTE] 有用的东西
+> - [历年卷(98上的)](https://www.cc98.org/topic/4932368)
+> - [理论题知识点](https://mubu.com/doc/DvVCp41D7-)
+> - [琐碎知识点整理](https://note.isshikih.top/cour_note/D1QD_CXiaoCheng)
+> - [易错题](https://note.tonycrane.cc/cs/pl/c_cpp/c/)

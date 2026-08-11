@@ -1,0 +1,21 @@
+{{- if eq .Type "alert" }}
+  {{- $titles := dict
+    "note" "注意"
+    "tip" "提示"
+    "important" "重要"
+    "warning" "警告"
+    "caution" "谨慎"
+  }}
+<aside class="admonition admonition--{{ .AlertType }}">
+  <p class="admonition__title">
+    {{- with .AlertTitle }}{{ . }}{{ else }}{{ index $titles .AlertType | default (title .AlertType) }}{{ end -}}
+  </p>
+  <div class="admonition__content">
+    {{- .Text }}
+  </div>
+</aside>
+{{- else }}
+<blockquote>
+  {{- .Text }}
+</blockquote>
+{{- end }}

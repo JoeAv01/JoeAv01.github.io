@@ -17,9 +17,9 @@ title: "Missing Semester"
 ---
 
 
-!!! note
-    - 如果你使用的是window，请安装使用WSL
-    - [汉化版课程](https://www.bilibili.com/video/BV1uc411N7eK?vd_source=524dadd413863e5ebc06123a41e0d62c&spm_id_from=333.788.videopod.sections)（感谢刘黑黑等大佬的工作）
-    - [官方 github 仓库](https://github.com/missing-semester/missing-semester)
-    - [2020 讲义](https://missing.csail.mit.edu/)
-    - [2020 中文讲义](https://missing-semester-cn.github.io/)
+> [!NOTE]
+> - 如果你使用的是window，请安装使用WSL
+> - [汉化版课程](https://www.bilibili.com/video/BV1uc411N7eK?vd_source=524dadd413863e5ebc06123a41e0d62c&spm_id_from=333.788.videopod.sections)（感谢刘黑黑等大佬的工作）
+> - [官方 github 仓库](https://github.com/missing-semester/missing-semester)
+> - [2020 讲义](https://missing.csail.mit.edu/)
+> - [2020 中文讲义](https://missing-semester-cn.github.io/)

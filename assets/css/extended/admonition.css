@@ -1,0 +1,21 @@
+.admonition {
+  margin: 1.5rem 0;
+  padding: 0.85rem 1rem;
+  background: var(--code-bg);
+  border-inline-start: 4px solid var(--content-link-color);
+  border-radius: var(--radius);
+}
+
+.admonition__title {
+  margin: 0 0 0.55rem;
+  color: var(--content-link-color);
+  font-weight: 700;
+}
+
+.admonition__content > :first-child {
+  margin-top: 0;
+}
+
+.admonition__content > :last-child {
+  margin-bottom: 0;
+}
