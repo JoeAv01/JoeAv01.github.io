@@ -1,0 +1,136 @@
+.article-toc-shell {
+  position: fixed;
+  top: calc(var(--header-height) + var(--gap));
+  right: max(var(--gap), calc(50vw - 680px));
+  bottom: var(--gap);
+  z-index: 90;
+  width: var(--section-sidebar-width);
+  max-height: calc(100vh - var(--header-height) - var(--gap) * 2);
+}
+
+.article-toc {
+  position: absolute;
+  inset: 0;
+  padding-inline-start: 1rem;
+  overflow-y: auto;
+  background: var(--theme);
+  border-inline-start: 1px solid var(--border);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(12px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 0s linear 180ms;
+}
+
+.article-toc-shell:hover .article-toc,
+.article-toc-shell:focus-within .article-toc {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0);
+  transition-delay: 0s;
+}
+
+.article-toc__trigger {
+  position: absolute;
+  top: 0;
+  right: -8px;
+  bottom: 0;
+  z-index: 1;
+  width: 20px;
+}
+
+.article-toc__trigger::before {
+  position: absolute;
+  top: 1.25rem;
+  left: 50%;
+  width: 3px;
+  height: 72px;
+  content: "";
+  background: var(--content-link-color);
+  border-radius: 999px;
+  opacity: 0.75;
+  transform: translateX(-50%);
+  transition: opacity 180ms ease;
+}
+
+.article-toc-shell:hover .article-toc__trigger::before,
+.article-toc-shell:focus-within .article-toc__trigger::before {
+  opacity: 0;
+}
+
+.article-toc__title {
+  margin: 0 0 1rem;
+  color: var(--content-link-color);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.article-toc ul,
+.article-mobile-toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-toc li + li,
+.article-mobile-toc li + li {
+  margin-top: 0.25rem;
+}
+
+.article-toc li a,
+.article-mobile-toc li a {
+  display: block;
+  padding: 0.45rem 0.65rem;
+  color: var(--content);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  border-inline-end: 3px solid transparent;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.article-toc li a:hover,
+.article-mobile-toc li a:hover {
+  color: var(--content-link-color);
+  background: var(--code-bg);
+  border-inline-end-color: var(--content-link-color);
+}
+
+.article-mobile-toc {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .article-toc-shell {
+    display: none;
+  }
+
+  .article-mobile-toc {
+    display: block;
+    margin-bottom: var(--content-gap);
+    padding: 0.65rem 0.9rem;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .article-mobile-toc > summary {
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .article-mobile-toc nav {
+    margin-top: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-toc,
+  .article-toc__trigger::before {
+    transition: none;
+  }
+}

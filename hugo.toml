@@ -20,6 +20,10 @@ hasCJKLanguage = true
   home = ["HTML", "RSS", "JSON"]
 
 [markup]
+  [markup.tableOfContents]
+    startLevel = 3
+    endLevel = 3
+    ordered = false
   [markup.goldmark]
     [markup.goldmark.extensions]
       [markup.goldmark.extensions.passthrough]

@@ -23,10 +23,15 @@
 {{- end }}
     {{ partialCached "header.html" . .Page -}}
     {{- $hasSectionSidebar := and (in (slice "posts" "zju-courses" "csdiy") .Section) (or .IsSection .IsPage) }}
+    {{- $tableOfContents := .TableOfContents }}
+    {{- $hasArticleToc := and $hasSectionSidebar (strings.Contains $tableOfContents "<li>") }}
     <main class="main{{ if $hasSectionSidebar }} main--section-layout{{ end }}">
         {{- if $hasSectionSidebar }}
             {{- partial "section-sidebar.html" . }}
             <div class="section-content">
+            {{- if $hasArticleToc }}
+                {{- partial "article-toc.html" (dict "toc" $tableOfContents) }}
+            {{- end }}
         {{- end }}
         {{- block "main" . }}{{ end }}
         {{- if $hasSectionSidebar }}

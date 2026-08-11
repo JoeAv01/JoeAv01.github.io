@@ -1,0 +1,15 @@
+{{- $desktopToc := replace .toc `id="TableOfContents"` `id="article-toc-navigation"` }}
+{{- $mobileToc := replace .toc `id="TableOfContents"` `id="article-mobile-toc-navigation"` }}
+
+<div class="article-toc-shell">
+  <a class="article-toc__trigger" href="#article-toc-navigation" aria-label="显示本页目录"></a>
+  <aside class="article-toc" aria-label="本页目录">
+    <p class="article-toc__title">本页目录</p>
+    {{- $desktopToc | safeHTML }}
+  </aside>
+</div>
+
+<details class="article-mobile-toc">
+  <summary>本页目录</summary>
+  {{- $mobileToc | safeHTML }}
+</details>
