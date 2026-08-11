@@ -1,40 +1,16 @@
-{{- $section := .CurrentSection }}
-{{- if .IsSection }}
-  {{- $section = . }}
-{{- end }}
-{{- $pages := $section.RegularPages.ByLinkTitle }}
+{{- $section := site.GetPage (printf "/%s" .Section) }}
 
 <div class="section-sidebar-shell">
   <a class="section-sidebar__trigger" href="#section-navigation" aria-label="显示文章目录"></a>
   <aside class="section-sidebar" aria-label="{{ $section.Title }} 文章导航">
     <nav class="section-sidebar__nav" id="section-navigation">
       <a class="section-sidebar__title" href="{{ $section.RelPermalink }}">{{ $section.Title }}</a>
-      <ul>
-        {{- range $pages }}
-          {{- $title := .LinkTitle }}
-          {{- with .File }}{{ $title = .BaseFileName }}{{ end }}
-        <li>
-          <a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ $title }}</a>
-        </li>
-        {{- else }}
-        <li class="section-sidebar__empty">暂无文章</li>
-        {{- end }}
-      </ul>
+      {{- partial "section-sidebar-items.html" (dict "parent" $section "current" .) }}
     </nav>
   </aside>
 </div>
 
 <details class="section-mobile-nav">
   <summary>{{ $section.Title }} 文章导航</summary>
-  <ul>
-    {{- range $pages }}
-      {{- $title := .LinkTitle }}
-      {{- with .File }}{{ $title = .BaseFileName }}{{ end }}
-    <li>
-      <a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ $title }}</a>
-    </li>
-    {{- else }}
-    <li class="section-sidebar__empty">暂无文章</li>
-    {{- end }}
-  </ul>
+  {{- partial "section-sidebar-items.html" (dict "parent" $section "current" .) }}
 </details>

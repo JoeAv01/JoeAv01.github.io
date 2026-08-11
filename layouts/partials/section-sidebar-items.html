@@ -1,0 +1,18 @@
+{{- $current := .current }}
+{{- $pages := .parent.Pages.ByWeight }}
+<ul>
+  {{- range $pages }}
+    {{- $title := .LinkTitle }}
+    {{- if not .IsSection }}
+      {{- with .File }}{{ $title = .BaseFileName }}{{ end }}
+    {{- end }}
+  <li{{ if .IsSection }} class="section-sidebar__group"{{ end }}>
+    <a href="{{ .RelPermalink }}"{{ if eq $current.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ $title }}</a>
+    {{- if and .IsSection .Pages }}
+      {{- partial "section-sidebar-items.html" (dict "parent" . "current" $current) }}
+    {{- end }}
+  </li>
+  {{- else }}
+  <li class="section-sidebar__empty">暂无文章</li>
+  {{- end }}
+</ul>
