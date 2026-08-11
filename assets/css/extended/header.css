@@ -1,3 +1,18 @@
+:root {
+  --header-background: rgb(232, 245, 233);
+  --header-border: rgb(200, 230, 201);
+}
+
+:root[data-theme="dark"] {
+  --header-background: rgb(8, 10, 9);
+  --header-border: rgb(36, 38, 37);
+}
+
+.header {
+  background: var(--header-background);
+  border-bottom: 1px solid var(--header-border);
+}
+
 .logo a img {
   width: 32px;
   height: 32px;
