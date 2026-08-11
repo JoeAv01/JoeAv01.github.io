@@ -1,20 +1,15 @@
 .main--section-layout {
-  --section-sidebar-width: 220px;
-  --section-layout-gap: 72px;
-  display: grid;
-  grid-template-columns: var(--section-sidebar-width) minmax(0, var(--main-width));
-  column-gap: var(--section-layout-gap);
-  align-items: start;
-  justify-content: center;
-  max-width: calc(
-    var(--main-width) + var(--section-sidebar-width) +
-      var(--section-layout-gap) + var(--gap) * 2
-  );
+  --section-sidebar-width: 200px;
+  display: block;
+  max-width: calc(var(--main-width) + var(--gap) * 2);
 }
 
 .section-sidebar {
-  position: sticky;
+  position: fixed;
   top: calc(var(--header-height) + var(--gap));
+  bottom: var(--gap);
+  left: max(var(--gap), calc(50vw - 680px));
+  width: var(--section-sidebar-width);
   max-height: calc(100vh - var(--header-height) - var(--gap) * 2);
   padding-inline-end: 1rem;
   overflow-y: auto;
@@ -29,7 +24,7 @@
   display: block;
   margin-bottom: 1rem;
   color: var(--content-link-color);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 700;
 }
 
@@ -50,6 +45,7 @@
   display: block;
   padding: 0.45rem 0.65rem;
   color: var(--content);
+  font-size: 0.875rem;
   line-height: 1.4;
   border-inline-start: 3px solid transparent;
   border-radius: 0 var(--radius) var(--radius) 0;
@@ -73,13 +69,7 @@
   display: none;
 }
 
-@media (min-width: 1200px) {
-  .section-sidebar {
-    transform: translateX(-72px);
-  }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .main--section-layout {
     display: block;
     max-width: calc(var(--main-width) + var(--gap) * 2);
