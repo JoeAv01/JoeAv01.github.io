@@ -1,6 +1,6 @@
 .main--section-layout {
   --section-sidebar-width: 220px;
-  --section-layout-gap: 40px;
+  --section-layout-gap: 72px;
   display: grid;
   grid-template-columns: var(--section-sidebar-width) minmax(0, var(--main-width));
   column-gap: var(--section-layout-gap);
@@ -71,6 +71,12 @@
 
 .section-mobile-nav {
   display: none;
+}
+
+@media (min-width: 1200px) {
+  .section-sidebar {
+    transform: translateX(-72px);
+  }
 }
 
 @media (max-width: 768px) {
