@@ -1,6 +1,6 @@
 :root {
-  --header-background: rgb(232, 245, 233);
-  --header-border: rgb(200, 230, 201);
+  --header-background: rgb(200, 230, 201);
+  --header-border: rgb(165, 214, 167);
 }
 
 :root[data-theme="dark"] {
