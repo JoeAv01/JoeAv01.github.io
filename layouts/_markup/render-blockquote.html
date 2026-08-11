@@ -8,7 +8,20 @@
   }}
 <aside class="admonition admonition--{{ .AlertType }}">
   <p class="admonition__title">
-    {{- with .AlertTitle }}{{ . }}{{ else }}{{ index $titles .AlertType | default (title .AlertType) }}{{ end -}}
+    <span class="admonition__icon" aria-hidden="true">
+      {{- if eq .AlertType "tip" }}
+      <svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M8.6 15.2a6 6 0 1 1 6.8 0c-.9.7-1.4 1.7-1.4 2.8h-4c0-1.1-.5-2.1-1.4-2.8Z"/></svg>
+      {{- else if eq .AlertType "important" }}
+      <svg viewBox="0 0 24 24"><path d="m12 3 9 9-9 9-9-9 9-9Zm0 5v5m0 3v.01"/></svg>
+      {{- else if eq .AlertType "warning" }}
+      <svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19L12 3Zm0 6v5m0 3v.01"/></svg>
+      {{- else if eq .AlertType "caution" }}
+      <svg viewBox="0 0 24 24"><path d="m8 2-6 6v8l6 6h8l6-6V8l-6-6H8Zm4 6v5m0 3v.01"/></svg>
+      {{- else }}
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.01"/></svg>
+      {{- end }}
+    </span>
+    <span>{{- with .AlertTitle }}{{ . }}{{ else }}{{ index $titles .AlertType | default (title .AlertType) }}{{ end -}}</span>
   </p>
   <div class="admonition__content">
     {{- .Text }}
