@@ -23,6 +23,9 @@
 {{- end }}
     {{ partialCached "header.html" . .Page -}}
     <main class="main">
+        {{- if and (in (slice "posts" "zju-courses" "csdiy") .Section) (or .IsSection .IsPage) }}
+            {{- partial "section-sidebar.html" . }}
+        {{- end }}
         {{- block "main" . }}{{ end }}
     </main>
     {{- if .IsHome }}

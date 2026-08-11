@@ -1,0 +1,38 @@
+{{- $section := .CurrentSection }}
+{{- if .IsSection }}
+  {{- $section = . }}
+{{- end }}
+{{- $pages := $section.RegularPages.ByLinkTitle }}
+
+<aside class="section-sidebar" aria-label="{{ $section.Title }} 文章导航">
+  <span class="section-sidebar__handle" aria-hidden="true">目录</span>
+  <nav class="section-sidebar__nav">
+    <a class="section-sidebar__title" href="{{ $section.RelPermalink }}">{{ $section.Title }}</a>
+    <ul>
+      {{- range $pages }}
+        {{- $title := .LinkTitle }}
+        {{- with .File }}{{ $title = .BaseFileName }}{{ end }}
+      <li>
+        <a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ $title }}</a>
+      </li>
+      {{- else }}
+      <li class="section-sidebar__empty">暂无文章</li>
+      {{- end }}
+    </ul>
+  </nav>
+</aside>
+
+<details class="section-mobile-nav">
+  <summary>{{ $section.Title }} 文章导航</summary>
+  <ul>
+    {{- range $pages }}
+      {{- $title := .LinkTitle }}
+      {{- with .File }}{{ $title = .BaseFileName }}{{ end }}
+    <li>
+      <a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ $title }}</a>
+    </li>
+    {{- else }}
+    <li class="section-sidebar__empty">暂无文章</li>
+    {{- end }}
+  </ul>
+</details>

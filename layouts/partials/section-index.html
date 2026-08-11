@@ -1,0 +1,17 @@
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . | markdownify }}</div>
+  {{- end }}
+</header>
+
+{{- with .Content }}
+<div class="post-content md-content">
+  {{- if not ($.Param "disableAnchoredHeadings") }}
+    {{- partial "anchored_headings.html" . }}
+  {{- else }}
+    {{- . }}
+  {{- end }}
+</div>
+{{- end }}
