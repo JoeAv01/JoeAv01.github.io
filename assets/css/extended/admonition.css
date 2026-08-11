@@ -66,3 +66,8 @@
 .admonition__content > :last-child {
   margin-bottom: 0;
 }
+
+.admonition__content > ul > li:first-child,
+.admonition__content > ol > li:first-child {
+  margin-top: 0;
+}
