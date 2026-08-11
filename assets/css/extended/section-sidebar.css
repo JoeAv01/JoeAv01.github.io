@@ -126,10 +126,10 @@
 
 .section-sidebar__branch > summary {
   position: absolute;
-  top: 0.35rem;
-  right: 0.15rem;
-  width: 1.6rem;
-  height: 1.6rem;
+  top: 0.2rem;
+  right: 0.1rem;
+  width: 1.75rem;
+  height: 1.75rem;
   color: var(--secondary);
   cursor: pointer;
   list-style: none;
@@ -142,12 +142,15 @@
 
 .section-sidebar__branch > summary::after {
   position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  content: "›";
-  font-size: 1rem;
-  line-height: 1;
+  top: 50%;
+  left: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  content: "";
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: center;
   transition: transform 150ms ease;
 }
 
@@ -159,7 +162,7 @@
 }
 
 .section-sidebar__branch[open] > summary::after {
-  transform: rotate(90deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .section-sidebar li a:hover,
