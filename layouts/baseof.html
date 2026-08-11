@@ -22,11 +22,16 @@
 <body id="top">
 {{- end }}
     {{ partialCached "header.html" . .Page -}}
-    <main class="main">
-        {{- if and (in (slice "posts" "zju-courses" "csdiy") .Section) (or .IsSection .IsPage) }}
+    {{- $hasSectionSidebar := and (in (slice "posts" "zju-courses" "csdiy") .Section) (or .IsSection .IsPage) }}
+    <main class="main{{ if $hasSectionSidebar }} main--section-layout{{ end }}">
+        {{- if $hasSectionSidebar }}
             {{- partial "section-sidebar.html" . }}
+            <div class="section-content">
         {{- end }}
         {{- block "main" . }}{{ end }}
+        {{- if $hasSectionSidebar }}
+            </div>
+        {{- end }}
     </main>
     {{- if .IsHome }}
         {{- partial "home-gif.html" . }}
