@@ -1,0 +1,81 @@
+{{- $hasSidebarSettings := and (in (slice "posts" "zju-courses" "csdiy") .Section) (or .IsSection .IsPage) }}
+{{- if $hasSidebarSettings }}
+<div class="sidebar-settings">
+  <div class="sidebar-settings__panel" id="sidebar-settings-panel" hidden>
+    <p class="sidebar-settings__title">侧栏显示方式</p>
+    <label class="sidebar-settings__option">
+      <input type="radio" name="sidebar-mode" value="auto">
+      <span>
+        <strong>自动隐藏</strong>
+        <small>鼠标靠近页面两侧时显示</small>
+      </span>
+    </label>
+    <label class="sidebar-settings__option">
+      <input type="radio" name="sidebar-mode" value="fixed">
+      <span>
+        <strong>固定显示</strong>
+        <small>左右侧栏保持展开</small>
+      </span>
+    </label>
+  </div>
+  <button class="sidebar-settings__toggle" type="button" aria-label="侧栏设置"
+          aria-controls="sidebar-settings-panel" aria-expanded="false" title="侧栏设置">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.09a2 2 0 0 1 1 1.74v.5a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2Z"></path>
+    </svg>
+  </button>
+</div>
+
+<script>
+  (() => {
+    const storageKey = "sidebar-display-mode";
+    const root = document.documentElement;
+    const settings = document.querySelector(".sidebar-settings");
+    const toggle = settings?.querySelector(".sidebar-settings__toggle");
+    const panel = settings?.querySelector(".sidebar-settings__panel");
+    const options = settings?.querySelectorAll('input[name="sidebar-mode"]');
+
+    if (!settings || !toggle || !panel || !options) return;
+
+    const applyMode = (mode) => {
+      const selectedMode = mode === "fixed" ? "fixed" : "auto";
+      root.dataset.sidebarMode = selectedMode;
+      options.forEach((option) => {
+        option.checked = option.value === selectedMode;
+      });
+    };
+
+    const closePanel = () => {
+      panel.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    applyMode(localStorage.getItem(storageKey));
+
+    toggle.addEventListener("click", () => {
+      const shouldOpen = panel.hidden;
+      panel.hidden = !shouldOpen;
+      toggle.setAttribute("aria-expanded", String(shouldOpen));
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("change", () => {
+        applyMode(option.value);
+        localStorage.setItem(storageKey, option.value);
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!settings.contains(event.target)) closePanel();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closePanel();
+        toggle.focus();
+      }
+    });
+  })();
+</script>
+{{- end }}

@@ -1,0 +1,107 @@
+.sidebar-settings {
+  position: fixed;
+  right: 2rem;
+  bottom: 1rem;
+  z-index: 101;
+}
+
+.sidebar-settings__toggle {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  color: var(--secondary);
+  cursor: pointer;
+  background: var(--tertiary);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  place-items: center;
+}
+
+.sidebar-settings__toggle:hover,
+.sidebar-settings__toggle[aria-expanded="true"] {
+  color: var(--content-link-color);
+}
+
+.sidebar-settings__toggle svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sidebar-settings__panel {
+  position: absolute;
+  right: 0;
+  bottom: 3.25rem;
+  width: 15rem;
+  padding: 0.85rem;
+  color: var(--content);
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.14);
+}
+
+.sidebar-settings__panel[hidden] {
+  display: none;
+}
+
+.sidebar-settings__title {
+  margin: 0 0 0.55rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.sidebar-settings__option {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  padding: 0.55rem;
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+
+.sidebar-settings__option:hover,
+.sidebar-settings__option:has(input:checked) {
+  background: var(--code-bg);
+}
+
+.sidebar-settings__option input {
+  margin-top: 0.2rem;
+  accent-color: var(--content-link-color);
+}
+
+.sidebar-settings__option span,
+.sidebar-settings__option small {
+  display: block;
+}
+
+.sidebar-settings__option strong {
+  font-size: 0.875rem;
+}
+
+.sidebar-settings__option small {
+  margin-top: 0.1rem;
+  color: var(--secondary);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+html[data-sidebar-mode="fixed"] .section-sidebar,
+html[data-sidebar-mode="fixed"] .article-toc {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(0);
+  transition-delay: 0s;
+}
+
+@media (max-width: 1200px) {
+  .sidebar-settings {
+    display: none;
+  }
+}
