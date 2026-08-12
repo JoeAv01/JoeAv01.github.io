@@ -1,0 +1,18 @@
+{{- $src := .Get "src" -}}
+{{- if not $src -}}
+  {{- errorf "pdf shortcode requires a src parameter: %s" .Position -}}
+{{- end -}}
+
+{{- $pdf := .Page.Resources.GetMatch $src -}}
+{{- if not $pdf -}}
+  {{- errorf "pdf resource %q was not found in the page bundle: %s" $src .Position -}}
+{{- end -}}
+
+{{- $label := .Get "title" | default $pdf.Name -}}
+<div class="pdf-embed">
+  <object class="pdf-embed__viewer" data="{{ $pdf.RelPermalink }}" type="application/pdf" aria-label="{{ $label }}">
+    <p class="pdf-embed__fallback">
+      当前浏览器无法直接预览 PDF。<a href="{{ $pdf.RelPermalink }}">打开或下载 {{ $label }}</a>
+    </p>
+  </object>
+</div>
