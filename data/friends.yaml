@@ -1,0 +1,9 @@
+# 添加友链时，删除文件末尾的 []，然后按下面的格式填写。
+# 每增加一位朋友，就复制一组以 "- name" 开头的数据。
+#
+# - name: "站点名称"
+#   url: "https://example.com"
+#   avatar: "/images/friends/example.jpg"
+#   description: "一句简短介绍"
+
+[]
