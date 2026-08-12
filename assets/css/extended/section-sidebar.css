@@ -5,13 +5,12 @@
 }
 
 .section-sidebar-shell {
-  position: absolute;
-  top: var(--gap);
-  bottom: auto;
-  left: max(calc(var(--gap) - 50vw + 50%), calc(50% - 680px));
+  position: fixed;
+  top: calc(var(--header-height) + var(--gap));
+  bottom: var(--gap);
+  left: max(var(--gap), calc(50vw - 680px));
   z-index: 90;
   width: var(--section-sidebar-width);
-  height: calc(100vh - var(--header-height) - var(--gap) * 2);
   max-height: calc(100vh - var(--header-height) - var(--gap) * 2);
 }
 

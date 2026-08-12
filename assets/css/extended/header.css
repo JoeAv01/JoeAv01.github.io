@@ -21,34 +21,14 @@
   flex-shrink: 0;
 }
 
-#menu a[href="https://github.com/JoeAv01/JoeAv01.github.io"] span {
-  display: flex;
+.header-github-link {
+  display: inline-flex !important;
   align-items: center;
-  font-size: 0;
+  justify-content: center;
+  padding: 0 0.4rem;
 }
 
-#menu a[href="https://github.com/JoeAv01/JoeAv01.github.io"] > svg {
-  display: none;
-}
-
-.header-github-icon {
-  width: 20px;
-  height: 20px;
-}
-
-@media screen and (min-width: 769px) {
-  .header-nav {
-    flex-wrap: nowrap;
-    align-items: center;
-  }
-
-  .header-nav .logo {
-    flex: 0 0 auto;
-  }
-
-  .header-nav .menu {
-    min-width: 0;
-    align-items: center;
-    column-gap: clamp(0.75rem, 1.5vw, var(--gap));
-  }
+.header-github-link svg {
+  width: 18px;
+  height: 18px;
 }
