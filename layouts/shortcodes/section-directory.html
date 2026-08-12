@@ -3,9 +3,6 @@
 <ul class="section-directory">
   {{- range $pages }}
     {{- $title := .LinkTitle -}}
-    {{- if not .IsSection -}}
-      {{- with .File }}{{ $title = .BaseFileName }}{{ end -}}
-    {{- end }}
   <li><a href="{{ .RelPermalink }}">{{ $title }}</a></li>
   {{- end }}
 </ul>

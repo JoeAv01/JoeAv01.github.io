@@ -3,9 +3,6 @@
 <ul>
   {{- range $pages }}
     {{- $title := .LinkTitle }}
-    {{- if not .IsSection }}
-      {{- with .File }}{{ $title = .BaseFileName }}{{ end }}
-    {{- end }}
   <li{{ if and .IsSection .Pages }} class="section-sidebar__group"{{ end }}>
     <a href="{{ .RelPermalink }}"{{ if eq $current.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ $title }}</a>
     {{- if and .IsSection .Pages }}

@@ -1,6 +1,8 @@
 ---
 title: "数据结构和算法"
 weight: 20
+aliases:
+  - "/zju-courses/数据结构和算法/"
 ---
 
 
