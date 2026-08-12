@@ -1,0 +1,60 @@
+{{- if in (slice "posts" "zju-courses" "csdiy") .Section }}
+{{- with site.Params.giscus }}
+<section class="giscus-comments" aria-label="评论">
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ .repo }}"
+          data-repo-id="{{ .repoID }}"
+          data-category="{{ .category }}"
+          data-category-id="{{ .categoryID }}"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="preferred_color_scheme"
+          data-lang="zh-CN"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+  </script>
+  <script>
+    (() => {
+      const container = document.currentScript.parentElement;
+      const getTheme = () =>
+        document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+
+      const syncTheme = () => {
+        const frame = container.querySelector("iframe.giscus-frame");
+        if (!frame) return;
+
+        frame.contentWindow.postMessage(
+          { giscus: { setConfig: { theme: getTheme() } } },
+          "https://giscus.app"
+        );
+      };
+
+      const watchFrame = () => {
+        const frame = container.querySelector("iframe.giscus-frame");
+        if (!frame || frame.dataset.themeSyncAttached) return;
+
+        frame.dataset.themeSyncAttached = "true";
+        frame.addEventListener("load", syncTheme);
+        syncTheme();
+      };
+
+      new MutationObserver(watchFrame).observe(container, {
+        childList: true,
+        subtree: true
+      });
+
+      new MutationObserver(syncTheme).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"]
+      });
+
+      watchFrame();
+    })();
+  </script>
+</section>
+{{- end }}
+{{- end }}

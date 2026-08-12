@@ -16,9 +16,15 @@ enableGitInfo = true
   mainSections = ["posts"]
   siteStartDate = "2026-08-12"
   githubURL = "https://github.com/JoeAv01/JoeAv01.github.io"
+  comments = true
   [params.label]
     icon = "images/avatar.jpg"
     iconHeight = 32
+  [params.giscus]
+    repo = "JoeAv01/JoeAv01.github.io"
+    repoID = "R_kgDOT2Sv5Q"
+    category = "Announcements"
+    categoryID = "DIC_kwDOT2Sv5c4DDOAz"
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
