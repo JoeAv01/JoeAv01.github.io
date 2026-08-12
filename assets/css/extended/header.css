@@ -35,3 +35,20 @@
   width: 20px;
   height: 20px;
 }
+
+@media screen and (min-width: 769px) {
+  .header-nav {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .header-nav .logo {
+    flex: 0 0 auto;
+  }
+
+  .header-nav .menu {
+    min-width: 0;
+    align-items: center;
+    column-gap: clamp(0.75rem, 1.5vw, var(--gap));
+  }
+}
