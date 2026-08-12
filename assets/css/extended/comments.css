@@ -1,3 +1,9 @@
 .giscus-comments {
   margin-top: calc(var(--content-gap) * 2);
 }
+
+.home-comments {
+  max-width: calc(var(--main-width) + var(--gap) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gap) var(--gap);
+}

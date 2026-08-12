@@ -34,9 +34,6 @@
             {{- end }}
         {{- end }}
         {{- block "main" . }}{{ end }}
-        {{- if .IsHome }}
-            {{- partial "comments.html" . }}
-        {{- end }}
         {{- if $hasSectionSidebar }}
             </div>
         {{- end }}
@@ -44,6 +41,9 @@
     {{- if .IsHome }}
         {{- partial "home-gif.html" . }}
         {{- partial "site-stats.html" . }}
+        <div class="home-comments">
+            {{- partial "comments.html" . }}
+        </div>
     {{- end }}
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
 </body>
