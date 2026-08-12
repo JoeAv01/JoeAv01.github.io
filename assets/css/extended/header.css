@@ -20,3 +20,18 @@
   object-fit: cover;
   flex-shrink: 0;
 }
+
+#menu a[href="https://github.com/JoeAv01/JoeAv01.github.io"] span {
+  display: flex;
+  align-items: center;
+  font-size: 0;
+}
+
+#menu a[href="https://github.com/JoeAv01/JoeAv01.github.io"] > svg {
+  display: none;
+}
+
+.header-github-icon {
+  width: 20px;
+  height: 20px;
+}
