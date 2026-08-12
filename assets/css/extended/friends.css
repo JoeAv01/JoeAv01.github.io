@@ -57,9 +57,9 @@
   min-width: 0;
 }
 
-.friend-card__name {
+.md-content .friend-card__name {
   margin: 0 0 0.3rem;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   line-height: 1.3;
 }
 
@@ -73,10 +73,10 @@
   color: var(--friends-link-hover);
 }
 
-.friend-card__description {
+.md-content .friend-card__description {
   margin: 0;
   color: var(--secondary);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   line-height: 1.5;
 }
 
