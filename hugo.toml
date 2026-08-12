@@ -3,6 +3,7 @@ theme = "PaperMod"
 defaultContentLanguage = "zh"
 defaultContentLanguageInSubdir = false
 hasCJKLanguage = true
+enableGitInfo = true
 
 [languages]
   [languages.zh]
