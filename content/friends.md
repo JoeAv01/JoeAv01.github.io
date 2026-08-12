@@ -1,5 +1,6 @@
 ---
 title: "Friends"
+searchHidden: true
 ---
 
 这是友链！
