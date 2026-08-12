@@ -1,11 +1,12 @@
 .admonition {
   --admonition-color: 68, 138, 255;
   margin: 1.5rem 0;
-  padding: 0.8rem 1rem;
+  padding: 0;
   background: rgba(var(--admonition-color), 0.08);
   border: 0;
   border-inline-start: 4px solid rgb(var(--admonition-color));
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .admonition--tip {
@@ -28,13 +29,13 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin: 0 0 0.3rem;
-  padding: 0;
+  margin: 0;
+  padding: 0.65rem 1rem;
   color: rgb(var(--admonition-color));
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.4;
-  background: transparent;
+  background: rgba(var(--admonition-color), 0.18);
 }
 
 .admonition__icon {
@@ -57,7 +58,15 @@
 .admonition__content {
   display: block;
   min-height: 0;
-  padding: 0;
+  padding: 0.75rem 1rem 0.85rem;
+}
+
+:root[data-theme="dark"] .admonition {
+  background: rgba(var(--admonition-color), 0.1);
+}
+
+:root[data-theme="dark"] .admonition__title {
+  background: rgba(var(--admonition-color), 0.24);
 }
 
 .admonition__content > :first-child {
