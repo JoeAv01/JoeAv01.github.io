@@ -34,6 +34,9 @@
             {{- end }}
         {{- end }}
         {{- block "main" . }}{{ end }}
+        {{- if .IsHome }}
+            {{- partial "comments.html" . }}
+        {{- end }}
         {{- if $hasSectionSidebar }}
             </div>
         {{- end }}

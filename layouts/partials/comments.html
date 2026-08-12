@@ -1,4 +1,5 @@
-{{- if in (slice "posts" "zju-courses" "csdiy") .Section }}
+{{- $isFriends := eq .RelPermalink ("/friends/" | relLangURL) }}
+{{- if or .IsHome $isFriends (in (slice "posts" "zju-courses" "csdiy") .Section) }}
 {{- with site.Params.giscus }}
 <section class="giscus-comments" aria-label="评论">
   <script src="https://giscus.app/client.js"
