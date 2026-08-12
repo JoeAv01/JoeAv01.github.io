@@ -6,12 +6,12 @@
 
 .section-sidebar-shell {
   position: fixed;
-  top: var(--header-height);
+  top: calc(var(--header-height) - 1px);
   bottom: 0;
   left: max(var(--gap), calc(50vw - 680px));
   z-index: 90;
   width: var(--section-sidebar-width);
-  max-height: calc(100vh - var(--header-height));
+  max-height: calc(100vh - var(--header-height) + 1px);
 }
 
 .section-sidebar {
@@ -51,13 +51,13 @@
 
 .section-sidebar__trigger::before {
   position: absolute;
-  top: 1.25rem;
+  top: 0;
   left: 50%;
   width: 3px;
   height: 72px;
   content: "";
   background: var(--content-link-color);
-  border-radius: 999px;
+  border-radius: 0 0 999px 999px;
   opacity: 0.75;
   transform: translateX(-50%);
   transition: opacity 180ms ease;
