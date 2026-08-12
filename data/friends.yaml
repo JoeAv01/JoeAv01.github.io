@@ -15,3 +15,28 @@
   url: "https://xuan-insr.github.io/"
   avatar: "/images/friends/xuan.jpg"
   description: "是暄暄哥哥！"
+
+- name: "鹤翔万里的笔记本"
+  url: "https://note.tonycrane.cc/"
+  avatar: "/images/friends/tonycrane.png"
+  description: "是鹤翔万里老师！"
+
+- name: "华零's blog"
+  url: "https://hzeroyuke.github.io/my_blog/"
+  avatar: "/images/friends/hzeroyuke.jpg"
+  description: "是华零哥哥！"
+
+- name: "NoughtQ的笔记本"
+  url: "https://note.noughtq.top/"
+  avatar: "/images/friends/NoughtQ.png"
+  description: "是NoughtQ佬！"
+
+- name: "mem的小站"
+  url: "https://mem.ac/friends/"
+  avatar: "/images/friends/mem.jpg"
+  description: "是mem佬！"
+
+- name: "Reahill's Blog"
+  url: "https://reahill.github.io/"
+  avatar: "/images/friends/Reahill.jpg"
+  description: "609自电之神"

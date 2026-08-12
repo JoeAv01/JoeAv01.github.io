@@ -13,11 +13,10 @@ title: "Missing Semester"
 
 现在回过头来看，这门课对我最大的意义是帮助我上手了命令行，在学习了更多知识以及进行了更多的实践之后，原先觉得困难的讲义现在看起来也觉得轻松了。我会更推荐把这门课当作一门短学期的课来上，只要上到 git 即可。
 
-
 ---
 
 
-> [!NOTE]
+> [!NOTE] 资源
 > - 如果你使用的是window，请安装使用WSL
 > - [汉化版课程](https://www.bilibili.com/video/BV1uc411N7eK?vd_source=524dadd413863e5ebc06123a41e0d62c&spm_id_from=333.788.videopod.sections)（感谢刘黑黑等大佬的工作）
 > - [官方 github 仓库](https://github.com/missing-semester/missing-semester)

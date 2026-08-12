@@ -1,5 +1,5 @@
 <div class="friends-grid">
-  {{- with site.Data.friends }}
+  {{- with hugo.Data.friends }}
     {{- range . }}
       <article class="friend-card">
         <a class="friend-card__avatar-link" href="{{ .url }}" target="_blank" rel="noopener noreferrer" aria-label="访问 {{ .name }}">

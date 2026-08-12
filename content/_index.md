@@ -11,7 +11,7 @@ title: "首页"
 ---
 
 {{< recent-update >}}
-**推荐阅读**：[title](/zju-courses/)
+**推荐阅读**：[ZJU课程经验](/zju-courses/)
 
 
 
