@@ -1,11 +1,11 @@
 :root {
-  --code-window-header: #e5e7eb;
-  --code-window-border: #d1d5db;
+  --code-window-header: #c8cbd1;
+  --code-window-border: #aeb3bc;
 }
 
 [data-theme="dark"] {
-  --code-window-header: #181a1f;
-  --code-window-border: #30343b;
+  --code-window-header: #0d0f12;
+  --code-window-border: #242830;
 }
 
 .md-content div.highlight,
