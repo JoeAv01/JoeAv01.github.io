@@ -6,4 +6,12 @@
 #   avatar: "/images/friends/example.jpg"
 #   description: "一句简短介绍"
 
-[]
+- name: "Savia的外装大脑"
+  url: "https://savia7582.github.io/Exterior/"
+  avatar: "/images/friends/savia.jpg"
+  description: "大爹✋😭🤚"
+
+- name: "咸鱼暄的代码空间"
+  url: "https://xuan-insr.github.io/"
+  avatar: "/images/friends/xuan.jpg"
+  description: "是暄暄哥哥！"

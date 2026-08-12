@@ -1,28 +1,19 @@
-<section class="friends-panel" aria-labelledby="friends-panel-title">
-  <header class="friends-panel__header">
-    <svg class="friends-panel__icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="m4 12 5 5L20 6" />
-    </svg>
-    <h2 id="friends-panel-title">我和我的朋友们</h2>
-  </header>
-
-  <div class="friends-grid">
-    {{- with site.Data.friends }}
-      {{- range . }}
-        <article class="friend-item">
-          <a class="friend-item__avatar-link" href="{{ .url }}" target="_blank" rel="noopener noreferrer" aria-label="访问 {{ .name }}">
-            <img class="friend-item__avatar" src="{{ .avatar }}" alt="{{ .name }} 的头像" loading="lazy">
-          </a>
-          <div class="friend-item__content">
-            <h3 class="friend-item__name">
-              <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .name }}</a>
-            </h3>
-            <p class="friend-item__description">{{ .description }}</p>
-          </div>
-        </article>
-      {{- end }}
-    {{- else }}
-      <p class="friends-grid__empty">暂无友链</p>
+<div class="friends-grid">
+  {{- with site.Data.friends }}
+    {{- range . }}
+      <article class="friend-card">
+        <a class="friend-card__avatar-link" href="{{ .url }}" target="_blank" rel="noopener noreferrer" aria-label="访问 {{ .name }}">
+          <img class="friend-card__avatar" src="{{ .avatar }}" alt="{{ .name }} 的头像" loading="lazy">
+        </a>
+        <div class="friend-card__content">
+          <h2 class="friend-card__name">
+            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ .name }}</a>
+          </h2>
+          <p class="friend-card__description">{{ .description }}</p>
+        </div>
+      </article>
     {{- end }}
-  </div>
-</section>
+  {{- else }}
+    <p class="friends-grid__empty">暂无友链</p>
+  {{- end }}
+</div>
