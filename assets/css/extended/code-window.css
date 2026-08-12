@@ -1,0 +1,42 @@
+:root {
+  --code-window-header: #e5e7eb;
+  --code-window-border: #d1d5db;
+}
+
+[data-theme="dark"] {
+  --code-window-header: #181a1f;
+  --code-window-border: #30343b;
+}
+
+.md-content div.highlight,
+.md-content pre:not(.highlight pre) {
+  border: 1px solid var(--code-window-border);
+  border-top: 2.25rem solid var(--code-window-header);
+  border-radius: 0.55rem;
+  box-shadow: 0 0.3rem 0.9rem rgba(0, 0, 0, 0.08);
+}
+
+.md-content div.highlight::before,
+.md-content pre:not(.highlight pre)::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -1.48rem;
+  left: 0.85rem;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: 1.25rem 0 #febc2e, 2.5rem 0 #28c840;
+}
+
+.md-content div.highlight > pre,
+.md-content pre:not(.highlight pre) code {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.md-content div.highlight .copy-code,
+.md-content pre:not(.highlight pre) > .copy-code {
+  top: -2rem;
+  right: 0.45rem;
+}
