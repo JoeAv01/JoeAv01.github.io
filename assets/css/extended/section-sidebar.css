@@ -6,12 +6,12 @@
 
 .section-sidebar-shell {
   position: fixed;
-  top: calc(var(--header-height) - 1px);
+  top: calc(var(--header-height) + 12px);
   bottom: 0;
   left: max(var(--gap), calc(50vw - 680px));
   z-index: 90;
   width: var(--section-sidebar-width);
-  max-height: calc(100vh - var(--header-height) + 1px);
+  max-height: calc(100vh - var(--header-height) - 12px);
 }
 
 .section-sidebar {
