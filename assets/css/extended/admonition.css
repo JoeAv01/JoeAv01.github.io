@@ -58,7 +58,7 @@
 .admonition__content {
   display: block;
   min-height: 0;
-  padding: 0.2rem 1rem 0.85rem;
+  padding: 0.05rem 1rem 0.85rem;
 }
 
 :root[data-theme="dark"] .admonition {
