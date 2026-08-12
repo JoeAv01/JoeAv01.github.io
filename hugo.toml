@@ -1,3 +1,4 @@
+baseURL = "https://joeav01.github.io/"
 title = "JoeAv's Blog"
 theme = "PaperMod"
 defaultContentLanguage = "zh"
@@ -19,6 +20,10 @@ enableGitInfo = true
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
 
 [markup]
   [markup.tableOfContents]
