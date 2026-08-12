@@ -1,11 +1,11 @@
 .article-toc-shell {
   position: fixed;
-  top: calc(var(--header-height) + 12px);
+  top: calc(var(--header-height) + 72px);
   right: max(var(--gap), calc(50vw - 680px));
   bottom: 0;
   z-index: 90;
   width: var(--section-sidebar-width);
-  max-height: calc(100vh - var(--header-height) - 12px);
+  max-height: calc(100vh - var(--header-height) - 72px);
 }
 
 .article-toc {
