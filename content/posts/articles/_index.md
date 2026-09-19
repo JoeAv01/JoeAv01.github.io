@@ -1,10 +1,10 @@
 ---
-title: "Knowledge"
-weight: 10
+title: "Articles"
+weight: 20
 ---
 
 >[!TIP] 简介
-> 这个部分用于存放知识类的笔记
+> 这个部分用于存放我写的各种文章。
 
 
 {{< spacer >}}
