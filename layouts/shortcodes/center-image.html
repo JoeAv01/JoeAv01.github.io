@@ -1,9 +1,14 @@
 {{- $src := .Get "src" -}}
 {{- $alt := .Get "alt" | default "" -}}
+{{- $width := .Get "width" -}}
+{{- $caption := .Get "caption" -}}
 {{- with resources.Get $src -}}
-<div class="center-image">
+<figure class="center-image"{{ with $width }} style="{{ printf "width: %s;" . | safeCSS }}"{{ end }}>
   <img src="{{ .RelPermalink }}" alt="{{ $alt }}" loading="lazy" decoding="async">
-</div>
+  {{- with $caption }}
+  <figcaption>{{ . }}</figcaption>
+  {{- end }}
+</figure>
 {{- else -}}
   {{- errorf "center-image shortcode could not find %q in assets: %s" $src .Position -}}
 {{- end -}}
