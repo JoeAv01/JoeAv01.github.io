@@ -63,19 +63,26 @@
 .article-toc li a,
 .article-mobile-toc li a {
   display: block;
-  padding: 0.45rem 0.65rem;
+  padding: 0.25rem 0.1rem;
   color: var(--content);
   font-size: 0.875rem;
   line-height: 1.4;
-  border-inline-end: 3px solid transparent;
-  border-radius: var(--radius) 0 0 var(--radius);
+  transition: color 150ms ease;
 }
 
 .article-toc li a:hover,
-.article-mobile-toc li a:hover {
+.article-toc li a:focus-visible,
+.article-toc li a.is-active,
+.article-mobile-toc li a:hover,
+.article-mobile-toc li a:focus-visible,
+.article-mobile-toc li a.is-active {
   color: var(--content-link-color);
-  background: var(--code-bg);
-  border-inline-end-color: var(--content-link-color);
+  outline: none;
+}
+
+.article-toc li a.is-active,
+.article-mobile-toc li a.is-active {
+  font-weight: 600;
 }
 
 .article-mobile-toc {

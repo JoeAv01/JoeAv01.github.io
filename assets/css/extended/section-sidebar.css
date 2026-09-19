@@ -82,17 +82,16 @@
 .section-sidebar li a,
 .section-mobile-nav li a {
   display: block;
-  padding: 0.45rem 0.65rem;
+  padding: 0.25rem 0.1rem;
   color: var(--content);
   font-size: 0.875rem;
   line-height: 1.4;
-  border-inline-start: 3px solid transparent;
-  border-radius: 0 var(--radius) var(--radius) 0;
+  transition: color 150ms ease;
 }
 
 .section-sidebar li li a,
 .section-mobile-nav li li a {
-  padding-block: 0.35rem;
+  padding-block: 0.2rem;
   font-size: 0.8125rem;
 }
 
@@ -137,7 +136,6 @@
 .section-sidebar__branch > summary:hover,
 .section-sidebar__branch > summary:focus-visible {
   color: var(--content-link-color);
-  background: var(--code-bg);
   outline: none;
 }
 
@@ -146,12 +144,18 @@
 }
 
 .section-sidebar li a:hover,
+.section-sidebar li a:focus-visible,
 .section-sidebar li a[aria-current="page"],
 .section-mobile-nav li a:hover,
+.section-mobile-nav li a:focus-visible,
 .section-mobile-nav li a[aria-current="page"] {
   color: var(--content-link-color);
-  background: var(--code-bg);
-  border-inline-start-color: var(--content-link-color);
+  outline: none;
+}
+
+.section-sidebar li a[aria-current="page"],
+.section-mobile-nav li a[aria-current="page"] {
+  font-weight: 600;
 }
 
 .section-sidebar__empty {

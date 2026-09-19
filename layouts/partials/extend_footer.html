@@ -78,4 +78,8 @@
     });
   })();
 </script>
+{{- with resources.Get "js/article-toc-spy.js" }}
+  {{- $articleTocSpy := . | minify | fingerprint }}
+<script src="{{ $articleTocSpy.RelPermalink }}" integrity="{{ $articleTocSpy.Data.Integrity }}" defer></script>
+{{- end }}
 {{- end }}
