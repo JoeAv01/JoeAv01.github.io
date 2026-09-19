@@ -13,7 +13,7 @@ enableGitInfo = true
     weight = 1
 
 [params]
-  mainSections = ["posts"]
+  mainSections = []
   siteStartDate = "2026-08-12"
   githubURL = "https://github.com/JoeAv01/JoeAv01.github.io"
   comments = true
