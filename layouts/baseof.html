@@ -24,7 +24,7 @@
     {{ partialCached "header.html" . .Page -}}
     {{- $hasSectionSidebar := and (in (slice "posts" "zju-courses" "csdiy") .Section) (or .IsSection .IsPage) }}
     {{- $tableOfContents := .TableOfContents }}
-    {{- $hasArticleToc := and $hasSectionSidebar (strings.Contains $tableOfContents "<li>") }}
+    {{- $hasArticleToc := and $hasSectionSidebar .IsPage (strings.Contains $tableOfContents "<li>") }}
     <main class="main{{ if $hasSectionSidebar }} main--section-layout{{ end }}">
         {{- if $hasSectionSidebar }}
             {{- partial "section-sidebar.html" . }}
