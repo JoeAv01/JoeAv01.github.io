@@ -1,0 +1,16 @@
+.md-content h1:hover .anchor,
+.md-content h2:hover .anchor,
+.md-content h3:hover .anchor,
+.md-content h4:hover .anchor,
+.md-content h5:hover .anchor,
+.md-content h6:hover .anchor {
+  color: var(--content-link-color);
+  font-size: 0.65em;
+  font-weight: 400;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.md-content .anchor:hover {
+  color: var(--content-link-hover-color) !important;
+}
