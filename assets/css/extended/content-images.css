@@ -1,0 +1,9 @@
+.center-image {
+    text-align: center;
+}
+
+.center-image img {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+}
