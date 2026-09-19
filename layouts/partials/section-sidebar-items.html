@@ -6,7 +6,8 @@
   <li{{ if and .IsSection .Pages }} class="section-sidebar__group"{{ end }}>
     <a href="{{ .RelPermalink }}"{{ if eq $current.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ $title }}</a>
     {{- if and .IsSection .Pages }}
-    <details class="section-sidebar__branch">
+    {{- $isCurrentBranch := or (eq $current.RelPermalink .RelPermalink) (.IsAncestor $current) }}
+    <details class="section-sidebar__branch"{{ if $isCurrentBranch }} open{{ end }}>
       <summary aria-label="{{ $title }} 子目录"></summary>
       {{- partial "section-sidebar-items.html" (dict "parent" . "current" $current) }}
     </details>
