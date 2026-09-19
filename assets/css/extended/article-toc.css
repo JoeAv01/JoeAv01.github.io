@@ -85,6 +85,29 @@
   font-weight: 600;
 }
 
+.article-toc nav > ul > li > ul,
+.article-mobile-toc nav > ul > li > ul {
+  display: none;
+  margin: 0.2rem 0 0.4rem 0.75rem;
+}
+
+.article-toc nav > ul > li.is-active-branch > ul,
+.article-mobile-toc nav > ul > li.is-active-branch > ul {
+  display: block;
+}
+
+.article-toc nav > ul > li.is-active-branch > a,
+.article-mobile-toc nav > ul > li.is-active-branch > a {
+  color: var(--content-link-color);
+  font-weight: 600;
+}
+
+.article-toc nav > ul > li > ul a,
+.article-mobile-toc nav > ul > li > ul a {
+  padding-block: 0.2rem;
+  font-size: 0.8125rem;
+}
+
 .article-mobile-toc {
   display: none;
 }

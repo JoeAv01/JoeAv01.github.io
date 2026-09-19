@@ -18,6 +18,10 @@
 
   if (!links.length || !headings.length) return;
 
+  const branchItems = [desktopNavigation, mobileNavigation]
+    .filter(Boolean)
+    .flatMap((navigation) => [...navigation.querySelectorAll(":scope > ul > li")]);
+
   const activationOffset = () => {
     const header = document.querySelector(".header");
     const headerHeight = header ? header.getBoundingClientRect().height : 0;
@@ -25,6 +29,8 @@
   };
 
   const setActiveHeading = (heading) => {
+    branchItems.forEach((item) => item.classList.remove("is-active-branch"));
+
     links.forEach((link) => {
       const targetId = decodeURIComponent(link.getAttribute("href").slice(1));
       const isActive = targetId === heading.id;
@@ -32,6 +38,10 @@
 
       if (isActive) {
         link.setAttribute("aria-current", "location");
+
+        const item = link.closest("li");
+        const parentItem = item?.parentElement.closest("li");
+        (parentItem || item)?.classList.add("is-active-branch");
       } else {
         link.removeAttribute("aria-current");
       }
