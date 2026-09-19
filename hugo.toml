@@ -17,6 +17,8 @@ enableGitInfo = true
   siteStartDate = "2026-08-12"
   githubURL = "https://github.com/JoeAv01/JoeAv01.github.io"
   comments = true
+  ShowReadingTime = true
+  ShowWordCount = true
   [params.label]
     icon = "images/avatar.jpg"
     iconHeight = 32
