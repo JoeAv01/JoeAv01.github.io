@@ -1,4 +1,6 @@
-{{- $pages := where site.RegularPages "RelPermalink" "ne" "/friends/" -}}
+{{- $pages := where site.RegularPages "Params.searchHidden" "ne" true -}}
+{{- $pages = where $pages "Layout" "ne" "search" -}}
+{{- $pages = where $pages "Layout" "ne" "archives" -}}
 {{- $pages = $pages.ByLastmod.Reverse -}}
 <p class="recent-update">
   <strong>最近更新：</strong>
