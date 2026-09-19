@@ -19,6 +19,7 @@ enableGitInfo = true
   comments = true
   ShowReadingTime = true
   ShowWordCount = true
+  ShowCodeCopyButtons = true
   [params.label]
     icon = "images/avatar.jpg"
     iconHeight = 32
