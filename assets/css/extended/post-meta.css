@@ -1,0 +1,11 @@
+.post-meta__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25em;
+}
+
+.post-meta__icon {
+    width: 1em;
+    height: 1em;
+    flex: 0 0 auto;
+}

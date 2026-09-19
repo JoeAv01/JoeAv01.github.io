@@ -1,4 +1,6 @@
 {{- $scratch := newScratch }}
+{{- $wordCountIcon := `<svg class="post-meta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg>` }}
+{{- $readingTimeIcon := `<svg class="post-meta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>` }}
 
 {{- if not .Date.IsZero -}}
     {{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format (default ":date_long" site.Params.DateFormat)))) }}
@@ -6,12 +8,12 @@
 
 {{- if (.Param "ShowWordCount") -}}
     {{- $wordCount := i18n "words" .WordCount | default (printf "%d words" .WordCount) -}}
-    {{- $scratch.Add "meta" (slice (printf "<span>字数：%s</span>" $wordCount)) }}
+    {{- $scratch.Add "meta" (slice (printf `<span class="post-meta__item">%s<span>字数：%s</span></span>` $wordCountIcon $wordCount)) }}
 {{- end }}
 
 {{- if (.Param "ShowReadingTime") -}}
     {{- $readingTime := i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime) -}}
-    {{- $scratch.Add "meta" (slice (printf "<span>预计阅读时间：%s</span>" $readingTime)) }}
+    {{- $scratch.Add "meta" (slice (printf `<span class="post-meta__item">%s<span>预计阅读时间：%s</span></span>` $readingTimeIcon $readingTime)) }}
 {{- end }}
 
 {{- if not (.Param "hideAuthor") -}}
