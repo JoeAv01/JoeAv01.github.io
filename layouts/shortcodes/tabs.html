@@ -1,0 +1,27 @@
+{{- $id := .Get "id" -}}
+{{- if not $id -}}
+  {{- errorf "tabs shortcode requires an id parameter: %s" .Position -}}
+{{- end -}}
+{{- $groupID := printf "content-tabs-%s" ($id | anchorize) -}}
+{{- .Page.Store.Set "hasTabs" true -}}
+{{- $content := .Inner -}}
+{{- $tabs := .Scratch.Get "tabs" -}}
+{{- if not $tabs -}}
+  {{- errorf "tabs shortcode requires at least one nested tab: %s" .Position -}}
+{{- end -}}
+
+<div class="content-tabs" data-tabs id="{{ $groupID }}">
+  <div class="content-tabs__list" role="tablist" aria-label="{{ .Get "label" | default "内容切换" }}">
+    {{- range $tabs }}
+    <button class="content-tabs__tab" type="button" role="tab"
+            id="{{ .tabID }}" aria-controls="{{ .panelID }}"
+            aria-selected="{{ if eq .index 0 }}true{{ else }}false{{ end }}"
+            tabindex="{{ if eq .index 0 }}0{{ else }}-1{{ end }}">
+      {{- .title -}}
+    </button>
+    {{- end }}
+  </div>
+  <div class="content-tabs__panels">
+    {{- $content }}
+  </div>
+</div>

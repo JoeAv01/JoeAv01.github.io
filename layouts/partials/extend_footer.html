@@ -82,4 +82,10 @@
   {{- $articleTocSpy := . | minify | fingerprint }}
 <script src="{{ $articleTocSpy.RelPermalink }}" integrity="{{ $articleTocSpy.Data.Integrity }}" defer></script>
 {{- end }}
+{{- if .Page.Store.Get "hasTabs" }}
+  {{- with resources.Get "js/content-tabs.js" }}
+    {{- $contentTabs := . | minify | fingerprint }}
+<script src="{{ $contentTabs.RelPermalink }}" integrity="{{ $contentTabs.Data.Integrity }}" defer></script>
+  {{- end }}
+{{- end }}
 {{- end }}

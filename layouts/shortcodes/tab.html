@@ -1,0 +1,18 @@
+{{- if not .Parent -}}
+  {{- errorf "tab shortcode must be nested inside tabs: %s" .Position -}}
+{{- end -}}
+{{- $title := .Get "title" -}}
+{{- if not $title -}}
+  {{- errorf "tab shortcode requires a title parameter: %s" .Position -}}
+{{- end -}}
+{{- $groupID := printf "content-tabs-%s" ((.Parent.Get "id") | anchorize) -}}
+{{- $index := .Parent.Scratch.Get "tabIndex" | default 0 -}}
+{{- $tabID := printf "%s-tab-%d" $groupID $index -}}
+{{- $panelID := printf "%s-panel-%d" $groupID $index -}}
+{{- .Parent.Scratch.Add "tabs" (slice (dict "index" $index "title" $title "tabID" $tabID "panelID" $panelID)) -}}
+{{- .Parent.Scratch.Set "tabIndex" (add $index 1) -}}
+
+<section class="content-tabs__panel" role="tabpanel"
+         id="{{ $panelID }}" aria-labelledby="{{ $tabID }}"{{ if ne $index 0 }} hidden{{ end }}>
+  {{- .Inner -}}
+</section>
