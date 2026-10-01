@@ -1,0 +1,17 @@
+<span class="admonition__icon" aria-hidden="true">
+  {{- if eq .type "tip" }}
+  <svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M8.6 15.2a6 6 0 1 1 6.8 0c-.9.7-1.4 1.7-1.4 2.8h-4c0-1.1-.5-2.1-1.4-2.8Z"/></svg>
+  {{- else if eq .type "important" }}
+  <svg viewBox="0 0 24 24"><path d="m12 3 9 9-9 9-9-9 9-9Zm0 5v5m0 3v.01"/></svg>
+  {{- else if eq .type "warning" }}
+  <svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19L12 3Zm0 6v5m0 3v.01"/></svg>
+  {{- else if eq .type "caution" }}
+  <svg viewBox="0 0 24 24"><path d="m8 2-6 6v8l6 6h8l6-6V8l-6-6H8Zm4 6v5m0 3v.01"/></svg>
+  {{- else }}
+  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.01"/></svg>
+  {{- end }}
+</span>
+<span class="admonition__label">{{ .title }}</span>
+{{- if .collapsible }}
+<span class="admonition__toggle" aria-hidden="true"></span>
+{{- end }}

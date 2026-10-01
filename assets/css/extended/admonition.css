@@ -55,6 +55,40 @@
   stroke-linejoin: round;
 }
 
+.admonition__label {
+  min-width: 0;
+}
+
+.admonition--collapsible > .admonition__title {
+  width: 100%;
+  cursor: pointer;
+  list-style: none;
+}
+
+.admonition--collapsible > .admonition__title::-webkit-details-marker {
+  display: none;
+}
+
+.admonition__toggle {
+  flex: 0 0 auto;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-inline-start: auto;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: rotate(-45deg);
+  transition: transform 0.18s ease;
+}
+
+.admonition--collapsible[open] .admonition__toggle {
+  transform: rotate(45deg);
+}
+
+.admonition--collapsible > .admonition__title:focus-visible {
+  outline: 2px solid rgb(var(--admonition-color));
+  outline-offset: -2px;
+}
+
 .admonition__content {
   display: block;
   min-height: 0;
