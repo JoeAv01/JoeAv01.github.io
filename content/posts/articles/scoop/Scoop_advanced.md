@@ -99,7 +99,7 @@ Scoop 在安装软件时，会将不同的版本隔离开来，每个版本都�
 
 接下来我们来简要介绍 versions 和 java 这两个 bucket。
 - main 通常维护软件的主流稳定版本，而一些旧版本或特殊版本比如 `python2.7` 会放在 versions bucket 中。
-- 由于 Java 的生态系统非常复杂，如果把这些都塞进 main 仓库，会让 main 变得非常臃肿。因此，Scoop 官方单独建立了 java Bucket 来专门管理 Java 发行版。注意：reset 命令不会切换 `JAVA_HOME`
+- 由于 Java 的生态系统非常复杂，如果把这些都塞进 main 仓库，会让 main 变得非常臃肿。因此，Scoop 官方单独建立了 java Bucket 来专门管理 Java 发行版。
 
 {{< spacer >}}
 
