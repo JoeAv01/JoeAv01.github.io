@@ -86,6 +86,7 @@ weight: 10
 
 > [!NOTE]- 作业 1.4
 > 提示：我会挑选作业题放入笔记中，以便复习。如果你还没做，请独立完成！
+>
 > 一个彩色显示器中每个像素由三基色构成，每种基色用 8 位表示，帧大小为 \(1280 \times 1024\)。为了保存一帧图像，最少需要多大的帧缓冲（以字节计算）？
 >
 > \[\frac{1280 \times 1024 \times 8 \times 3}{8} = 3932160~\text{bytes}\]
@@ -250,23 +251,27 @@ $$
 >
 > 求出当该程序分别运行在 1、2、4 和 8 个处理器核上的执行时间，并求出其他情况下相对于单核处理器的加速比。
 >
-> **答案**（过程由 AI 生成，仅供参考）：每个核执行程序所需的时钟周期数 \(CC_p\) 为：
+> **答案：**
 >
-> \[CC_p = IC_{arith\_p} \times CPI_{arith} + IC_{ls\_p} \times CPI_{ls} + IC_{branch\_p} \times CPI_{branch}\]
+> 单核使用原始指令数，其执行时间为：
 >
-> 代入已知的 CPI 值（1、12、5）：
+> \[\begin{aligned} T_1 &= \frac{2.56 \times 10^9 \times 1 + 1.28 \times 10^9 \times 12 + 2.56 \times 10^8 \times 5}{2 \times 10^9} \\ &= 1.28 + 7.68 + 0.64 \\ &= 9.6\,\text{s} \end{aligned}\]
 >
-> \[CC_p = \left( \frac{2.56 \times 10^9}{0.7p} \right) \times 1 + \left( \frac{1.28 \times 10^9}{0.7p} \right) \times 12 + (2.56 \times 10^8) \times 5\]
+> 当程序运行在多个处理器核上时，算术指令和 load/store 指令数除以 \(0.7p\)，分支指令数保持不变。因此：
 >
-> \[CC_p = \frac{25.6 \times 10^9}{p} + 1.28 \times 10^9\]
+> \[T_p = \frac{12.8}{p} + 0.64 \qquad (p > 1)\]
 >
-> 已知时钟频率 \(f = 2\text{GHz} = 2 \times 10^9 \text{Hz}\)，则每个核的执行时间 \(T_p\) 为：
+> 当使用 2 个处理器核时：
 >
-> \[T_p = \frac{CC_p}{f} = \frac{\frac{25.6 \times 10^9}{p} + 1.28 \times 10^9}{2 \times 10^9}\]
+> \[\begin{aligned} T_2 &= \frac{1.28}{1.4} + \frac{7.68}{1.4} + 0.64 = 7.04\,\text{s}, \\ S_2 &= \frac{T_1}{T_2} = \frac{9.6}{7.04} \approx 1.36 \end{aligned}\]
 >
-> \[T_p = \frac{12.8}{p} + 0.64 \quad (\text{单位：秒})\]
+> 当使用 4 个处理器核时：
 >
-> 具体值计算省略
+> \[\begin{aligned} T_4 &= \frac{1.28}{2.8} + \frac{7.68}{2.8} + 0.64 = 3.84\,\text{s}, \\ S_4 &= \frac{T_1}{T_4} = \frac{9.6}{3.84} = 2.5 \end{aligned}\]
+>
+> 当使用 8 个处理器核时：
+>
+> \[\begin{aligned} T_8 &= \frac{1.28}{5.6} + \frac{7.68}{5.6} + 0.64 = 2.24\,\text{s}, \\ S_8 &= \frac{T_1}{T_8} = \frac{9.6}{2.24} \approx 4.29 \end{aligned}\]
 
 
 ### Performance Summary
