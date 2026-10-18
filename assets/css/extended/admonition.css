@@ -2,8 +2,8 @@
   --admonition-color: 68, 138, 255;
   margin: 1.5rem 0;
   padding: 0;
-  background: rgba(var(--admonition-color), 0.08);
-  border: 0;
+  background: var(--theme);
+  border: 1px solid rgba(var(--admonition-color), 0.72);
   border-inline-start: 4px solid rgb(var(--admonition-color));
   border-radius: 4px;
   overflow: hidden;
@@ -93,10 +93,7 @@
   display: block;
   min-height: 0;
   padding: 0.02rem 1rem 0.85rem;
-}
-
-:root[data-theme="dark"] .admonition {
-  background: rgba(var(--admonition-color), 0.1);
+  background: var(--theme);
 }
 
 :root[data-theme="dark"] .admonition__title {
