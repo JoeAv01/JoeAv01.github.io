@@ -40,8 +40,13 @@ weight: 10
 
 > [!NOTE]
 > 课本上是八个思想，不在 ppt 上的是：
+>
 > **面向摩尔定律的设计（Design for Moore's Law）**
-> 摩尔定律是摩尔在 1965 年对于集成电路容量的预测，即*8-24 个月内集成电路的性能就会翻一番*。
+>
+> 摩尔定律是摩尔在 1965 年对于集成电路容量的预测，即
+>
+> *8-24 个月内集成电路的性能就会翻一番*。
+>
 > 但是如今已经接近极限，所以老师并没有放进 ppt 当中。
 >
 
@@ -118,7 +123,7 @@ weight: 10
 {{< center-image
     src="images/pcs/1.5.1.png"
     alt="collections"
-    width="60%"
+    width="70%"
 >}}
 工艺良率（yield）: 每片晶圆可用芯片比例。Proportion of working dies per wafer
 
@@ -127,7 +132,7 @@ weight: 10
 {{< center-image
     src="images/pcs/1.5.2.png"
     alt="collections"
-    width="60%"
+    width="70%"
 >}}
 
 成本与面积和缺陷率呈非线性关系：
@@ -196,13 +201,9 @@ $$
 但是这两个并不总能同时优化，硬件设计者必须权衡频率与周期数
 
 
-例子（hide）：
-
-{{< center-image
-    src="images/pcs/1.6.1.png"
-    alt="collections"
-    width="60%"
->}}
+> [!NOTE]- 例子
+>
+> {{< center-image src="images/pcs/1.6.1.png" alt="collections" width="70%" >}}
 
 可以看出，时钟周期数和频率是互相关联的，单纯提高其一可能会降低另一，实际情况往往更加复杂。
 
@@ -227,12 +228,9 @@ $$
 - 不同的指令有不同的 CPI，它与指令分布（instruction mix）有关，比如加减操作少于乘除
 - 时间是唯一对计算机性能进行测量的完成而可靠的指标
 
-例子：
-{{< center-image
-    src="images/pcs/1.6.2.png"
-    alt="collections"
-    width="60%"
->}}
+> [!NOTE] 例子
+>
+> {{< center-image src="images/pcs/1.6.2.png" alt="collections" width="70%" >}}
 
 
 ### CPI in more detail
@@ -319,13 +317,13 @@ $$
 {{< center-image
     src="images/pcs/1.7.1.png"
     alt="collections"
-    width="60%"
+    width="70%"
 >}}
 
 {{< center-image
     src="images/pcs/1.7.2.png"
     alt="collections"
-    width="60%"
+    width="70%"
 >}}
 负荷和功耗是不成比例的
 
