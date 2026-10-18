@@ -84,7 +84,7 @@ weight: 10
 	- 彩色显示器通常用 8 位表示每个颜色分量（每通道 0–255），每个像素用 24 位（8* 3）表示;
 	- frame buffer（光栅刷新缓冲区，通常位于显存中）保存待显示的像素数据，并按刷新频率不断刷新屏幕，从而形成稳定、连续的图像。
 
-{{< tabs id="chapter-1-exercise-1-4" label="作业 1.4" variant="example" >}}
+{{< tabs id="chapter-1-exercise-1-4" label="作业 1.4" variant="example" open="false" >}}
 
 {{% tab title="题目" %}}
 提示：我会挑选作业题放入笔记中，以便复习。如果你还没做，请独立完成！
@@ -159,7 +159,7 @@ weight: 10
 
 **吞吐率（Throughput）**：给定时间内完成的任务数，也被称为带宽
 
-{{< tabs id="chapter-1-response-time-example" label="例题" variant="example" >}}
+{{< tabs id="chapter-1-response-time-example" label="例题" variant="example" open="false" >}}
 
 {{% tab title="题目" %}}
 以下哪种方式可以同时减小响应时间和提高吞吐率？
@@ -278,7 +278,7 @@ $$
 \boxed{\displaystyle CPI = \frac{Clock~Cycles}{Instruction~Count} = \sum_{i=1}^{n}\left(CPI_i \times \underbrace{\frac{Instraction~Count_i}{Instruction~Count}}_{Relative~frequency}\right)}
 $$
 
-{{< tabs id="chapter-1-exercise-1-9-1" label="作业 1.9.1" variant="example" >}}
+{{< tabs id="chapter-1-exercise-1-9-1" label="作业 1.9.1" variant="example" open="false" >}}
 
 {{% tab title="题目" %}}
 在某处理器中，假定算术指令、load/store 指令和分支指令的 CPI 分别是 1、12 和 5。同时假定某程序在单个处理器核上运行时需要执行 \(2.56\times10^9\) 条算术指令、\(1.28\times10^9\) 条 load/store 指令和 \(2.56\times10^8\) 条分支指令，并假定处理器的时钟频率为 2GHz。
