@@ -4,6 +4,7 @@ weight: 10
 ---
 
 ## 1.1 Introduction
+
 - The Computer Revolution
 - Classes of Computers
 	- Personal computers
@@ -14,29 +15,22 @@ weight: 10
 	- Personal Mobile Device (PMD)
 	- Cloud computing
 
-
 ## 1.2 Seven Great Ideas in Computer Architecture
+
 - **使用抽象简化设计（Use abstraction to simplify design）**
 	隐藏低层次细节以简化。
-
 - **加速经常性事件（Make the common case fast）**
 	加速经常性事件比优化罕见情形可以更好提升性能。
-
 - **通过并行提高性能（Performance via parallelism）**
 	通过并行计算获得更高性能。
-
 - **通过流水线提高性能（Performance via pipelining）**
 	把任务拆成若干步骤，每个步骤由专门的部分负责，是并行性的一种特殊情形。
-
 - **通过预测提高性能（Performance via prediction）**
 	某些情况下，从预测错误中恢复代价并不高，且预测相对可靠，则平均来说预测并开始工作会更快。
-
 - **存储层次（Hierarchy of memories）**
 	存储层次可以解决存储器速度、容量与价格的冲突。
-
 - **通过冗余提高可靠性（Dependability via redundancy）**
 	冗余组件在系统发生故障时可以替代失效组件并帮助检测故障。
-
 
 > [!NOTE]
 > 课本上是八个思想，不在 ppt 上的是：
@@ -48,9 +42,9 @@ weight: 10
 > *8-24 个月内集成电路的性能就会翻一番*。
 >
 > 但是如今已经接近极限，所以老师并没有放进 ppt 当中。
->
 
 ## 1.3 Below your Program
+
 1. 结构层次：外层是应用软件，中心是硬件，系统软件在之间。
    - 应用软件（Application Software）
      - 由高级语言编写
@@ -72,7 +66,9 @@ weight: 10
 高级语言 → 编译器 → 汇编语言 → 汇编器 → 机器语言
 
 ## 1.4 Under the Covers
+
 ### Components of a Computer
+
 - 冯诺依曼架构：输入、输出、存储器、处理器、控制器、数据通路
 
 - 输入输出设备
@@ -81,7 +77,6 @@ weight: 10
 	- 网络适配器
 
 - 打开 PC：主板
-
 
 - Touchscreen：后 PC 时代设备，分为电阻式与电容式
 - Through the Looking Glass：LCD 屏
@@ -125,17 +120,21 @@ weight: 10
 	- 无线网络：WiFi, Bluetooth
 
 ## 1.5 Technologies for Building Processors and Memory
+
 - 技术趋势：
 	- 容量与性能增加
 	- 成本减少
 
 - 半导体技术：硅 （了解）
+
 制作流程：
+
 {{< center-image
     src="images/pcs/1.5.1.png"
     alt="collections"
     width="70%"
 >}}
+
 工艺良率（yield）: 每片晶圆可用芯片比例。Proportion of working dies per wafer
 
 集成电路成本：
@@ -147,16 +146,20 @@ weight: 10
 >}}
 
 成本与面积和缺陷率呈非线性关系：
+
 - 晶圆成本和面积是固定的
 - 缺陷率由制造工艺决定
 - 裸片面积由架构和电路设计决定
 
 ## 1.6 Performance
-本节重点
-### Defining Performance
-**响应时间（Response Time）**：完成一项任务所花时间，也称为执行时间
-**吞吐率（Throughput）**：给定时间内完成的任务数，也被称为带宽
 
+本节重点
+
+### Defining Performance
+
+**响应时间（Response Time）**：完成一项任务所花时间，也称为执行时间
+
+**吞吐率（Throughput）**：给定时间内完成的任务数，也被称为带宽
 
 #### 例题
 
@@ -182,16 +185,17 @@ weight: 10
 性能的定义：性能 = 1 / 执行时间，即
 
 $$
-Performance_X = \frac{1}{Execution~Time_X}
+\boxed{\displaystyle Performance_X = \frac{1}{Execution~Time_X}}
 $$
 
 相对性能：X 的性能比 Y 快 n 倍：
 
 $$
-\frac{Performance_X}{Performance_Y} = \frac{Execution~Time_Y}{Execution~Time_X} = n
+\boxed{\displaystyle \frac{Performance_X}{Performance_Y} = \frac{Execution~Time_Y}{Execution~Time_X} = n}
 $$
 
 ### Measuring Execution Time
+
 - 运行时间（Elapsed Time）：总响应时间
 	- 包括：处理 I/O， 操作系统开销等
 	- 决定系统性能
@@ -201,24 +205,30 @@ $$
 	- 不同的程序受到 CPU 和系统性能的影响不同
 
 ### CPU Clocking
+
 所有硬件操作都基于一个时钟周期，即 CPU Clocking
 
 **时钟周期（Clock period）**: 一个周期的时长
+
 **时钟频率（Clock frequency (rate)）**: 每秒周期数
 
 可通过如下公式计算 CPU Time
+
 $$
+\boxed{
 \begin{aligned}
 CPU ~Time &=CPU ~ Clock ~ Cycles \times Clock ~ Cycle ~ Time \\
 &= \frac{CPU~Clock~Time} {Clock~Rate}
 \end{aligned}
+}
 $$
 
 基于这个公式，可以通过如下方式提高性能：
+
 - 减少周期数
 - 增加频率
-但是这两个并不总能同时优化，硬件设计者必须权衡频率与周期数
 
+但是这两个并不总能同时优化，硬件设计者必须权衡频率与周期数
 
 > [!NOTE]- 例子
 >
@@ -227,21 +237,28 @@ $$
 可以看出，时钟周期数和频率是互相关联的，单纯提高其一可能会降低另一，实际情况往往更加复杂。
 
 ### Instruction Count and CPI
+
 周期数可以通过如下公式计算：
+
 $$
-Clock~Cycles = Instruction~Count \times CPI
+\boxed{\displaystyle Clock~Cycles = Instruction~Count \times CPI}
 $$
+
 其中 Instruction Count 指的是指令数，CPI 指的是指令周期数（Cycles per Instruction）。
+
 带入上面的公式有：
+
 $$
+\boxed{
 \begin{aligned}
 CPU~Time &= Instrution~Count \times CPI \times Clock~Cycle~Time \\
 &= \frac{Instruction~Count \times CPI}{Clock~Rate}
 \end{aligned}
+}
 $$
 
-
 需要注意的是：
+
 - 一个程序的指令数由程序自身、ISA、编译器等决定
 - 平均指令周期数由 CPU 硬件决定
 - 不同的指令有不同的 CPI，它与指令分布（instruction mix）有关，比如加减操作少于乘除
@@ -251,16 +268,20 @@ $$
 >
 > {{< center-image src="images/pcs/1.6.2.png" alt="collections" width="70%" >}}
 
-
 ### CPI in more detail
+
 如果不同的指令类的周期数不同，有：
+
 $$
-Clock~Cycles = \sum_{i=1}^{n} (CPI_i \times Instruction~Count)
+\boxed{\displaystyle Clock~Cycles = \sum_{i=1}^{n} (CPI_i \times Instruction~Count)}
 $$
+
 CPI 的加权平均为：
+
 $$
-CPI = \frac{Clock~Cycles}{Instruction~Count} = \sum_{i=1}^{n}(CPI_i \times \underbrace{\frac{Instraction~Count_i}{Instruction~Count}}_{Relative~frequency})
+\boxed{\displaystyle CPI = \frac{Clock~Cycles}{Instruction~Count} = \sum_{i=1}^{n}\left(CPI_i \times \underbrace{\frac{Instraction~Count_i}{Instruction~Count}}_{Relative~frequency}\right)}
 $$
+
 #### 作业 1.9.1
 
 {{< tabs id="chapter-1-exercise-1-9-1" label="作业 1.9.1" >}}
@@ -320,37 +341,43 @@ S_8 &= \frac{T_1}{T_8} = \frac{9.6}{2.24} \approx 4.29
 
 {{< /tabs >}}
 
-
 ### Performance Summary
+
 一个总结的公式：
+
 $$
-CPU~Time = \frac{Instructions}{Program} \times \frac{Clock~Cycles}{Instruction} \times \frac{Seconds}{Clock~Cycle}
+\boxed{\displaystyle CPU~Time = \frac{Instructions}{Program} \times \frac{Clock~Cycles}{Instruction} \times \frac{Seconds}{Clock~Cycle}}
 $$
+
 影响性能的因素：
+
 - 算法: 影响指令数, 可能会影响 CPI
 - 编程语言: 影响指令数和 CPI
 - 编译器: 影响指令数和 CPI
 - ISA: 影响指令数、时钟频率和 CPI
 
-
 ## 1.7 The Power Wall
-### Power Trends
-CMOS 在当今集成电路技术中占统治地位，其能耗计算公式为
-$$
-Power = Capacicitive~load \times Voltage^2 \times Frequency
-$$
 
+### Power Trends
+
+CMOS 在当今集成电路技术中占统治地位，其能耗计算公式为
+
+$$
+\boxed{\displaystyle Power = Capacicitive~load \times Voltage^2 \times Frequency}
+$$
 
 ### Reducing Power
+
 目前的问题是电压继续下降晶体管会更容易泄露能量，造成更多的浪费；而降低热量也难以实现，计算机设计者遇到了功耗墙问题。
 
 那么我们还可以做什么以提高性能？
 
-
 ### Multiprocessors
+
 功耗墙的限制迫使设计者从单核处理器转向多核处理器
 
 它要求： 采用并行编程
+
 - 与指令级并行相比
 	- 硬件同时执行多条指令
 	- 对程序员是隐藏的
@@ -359,10 +386,10 @@ $$
 	- 负载均衡
 	- 优化通信与同步
 
-
-
 ### SPEC CPU Benchmark
+
 这个部分也不是重点，直接放 ppt 上来了
+
 {{< center-image
     src="images/pcs/1.7.1.png"
     alt="collections"
@@ -374,34 +401,43 @@ $$
     alt="collections"
     width="70%"
 >}}
+
 负荷和功耗是不成比例的
 
 ## 1.8 Fallacies and Pitfalls
+
 ### Pitfall: Amdahl’s Law
+
 陷阱：改进计算机的某个方面时期望整体性能获得成比例的提升。
 
 实际上，部分性能的提升对整体性能的提升是有限的。可以用下面的 Amdahl 定律计算：
-$$
-T_{improved} = \frac{T_{affected}}{improvement~factor} + T_{unaffected}
-$$
 
+$$
+\boxed{\displaystyle T_{improved} = \frac{T_{affected}}{improvement~factor} + T_{unaffected}}
+$$
 
 ### Fallacy: Low Power at Idle
+
 谬误：低利用率的电脑具有更低功耗。
 
 ### Pitfall: MIPS as a Performance Metric
+
 陷阱：用性能公式的一个子集去度量性能
+
 $$
+\boxed{
 \begin{aligned}
 MIPS &= \frac{Instruction~count}{Execution~time \times 10^6} \\
 	&= \frac{Instruction~count}{\left(\frac{Instruction~count \times CPI}{Clock~rate}\right) \times 10^6} \\
 	&= \frac{Clock~rate}{CPI \times 10^6}
 \end{aligned}
+}
 $$
 
 MIPS 是每秒百万条指令数 （Millions of Instructions Per Second）
 
 用它来度量性能容易理解又符合人的直觉，但是
+
 - 它没有考虑到指令数，因此我们不能用它来比较使用不同指令集的电脑性能。
 - 即使在相同的电脑上，MIPS 也会随程序的不同而不同。
 - 如果一台电脑执行很多指令，但是每条指令都运行地很快，那么 MIPS 将无法反映实际的性能。
