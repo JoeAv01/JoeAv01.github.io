@@ -3,6 +3,11 @@
   {{- errorf "tabs shortcode requires an id parameter: %s" .Position -}}
 {{- end -}}
 {{- $groupID := printf "content-tabs-%s" ($id | anchorize) -}}
+{{- $label := .Get "label" | default "内容切换" -}}
+{{- $variant := .Get "variant" | default "default" -}}
+{{- if not (in (slice "default" "example") $variant) -}}
+  {{- errorf "tabs shortcode received unsupported variant %q: %s" $variant .Position -}}
+{{- end -}}
 {{- .Page.Store.Set "hasTabs" true -}}
 {{- $content := .Inner -}}
 {{- $tabs := .Scratch.Get "tabs" -}}
@@ -10,8 +15,16 @@
   {{- errorf "tabs shortcode requires at least one nested tab: %s" .Position -}}
 {{- end -}}
 
-<div class="content-tabs" data-tabs id="{{ $groupID }}">
-  <div class="content-tabs__list" role="tablist" aria-label="{{ .Get "label" | default "内容切换" }}">
+<div class="content-tabs{{ if eq $variant "example" }} content-tabs--example{{ end }}" data-tabs id="{{ $groupID }}">
+  {{- if eq $variant "example" }}
+  <div class="content-tabs__heading">
+    <span class="content-tabs__heading-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4Zm9.5-13.5 4 4M14 20h6"/></svg>
+    </span>
+    <span>{{ $label }}</span>
+  </div>
+  {{- end }}
+  <div class="content-tabs__list" role="tablist" aria-label="{{ $label }}">
     {{- range $tabs }}
     <button class="content-tabs__tab" type="button" role="tab"
             id="{{ .tabID }}" aria-controls="{{ .panelID }}"
