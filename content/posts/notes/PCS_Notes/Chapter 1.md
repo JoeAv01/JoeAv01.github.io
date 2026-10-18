@@ -213,7 +213,7 @@ $$
 $$
 \boxed{
 \begin{aligned}
-CPU ~Time &=CPU ~ Clock ~ Cycles \times Clock ~ Cycle ~ Time \\
+CPU ~Time &=CPU ~ Clock ~ Cycles \times Clock ~ Cycle ~ Time \\[0.4em]
 &= \frac{CPU~Clock~Time} {Clock~Rate}
 \end{aligned}
 }
@@ -247,7 +247,7 @@ $$
 $$
 \boxed{
 \begin{aligned}
-CPU~Time &= Instrution~Count \times CPI \times Clock~Cycle~Time \\
+CPU~Time &= Instrution~Count \times CPI \times Clock~Cycle~Time \\[0.4em]
 &= \frac{Instruction~Count \times CPI}{Clock~Rate}
 \end{aligned}
 }
@@ -293,8 +293,8 @@ $$
 
 \[
 \begin{aligned}
-T_1 &= \frac{2.56 \times 10^9 \times 1 + 1.28 \times 10^9 \times 12 + 2.56 \times 10^8 \times 5}{2 \times 10^9} \\
-&= 1.28 + 7.68 + 0.64 \\
+T_1 &= \frac{2.56 \times 10^9 \times 1 + 1.28 \times 10^9 \times 12 + 2.56 \times 10^8 \times 5}{2 \times 10^9} \\[0.4em]
+&= 1.28 + 7.68 + 0.64 \\[0.4em]
 &= 9.6\,\text{s}
 \end{aligned}
 \]
@@ -309,7 +309,7 @@ T_p = \frac{12.8}{p} + 0.64 \qquad (p > 1)
 
 \[
 \begin{aligned}
-T_2 &= \frac{1.28}{1.4} + \frac{7.68}{1.4} + 0.64 = 7.04\,\text{s}, \\
+T_2 &= \frac{1.28}{1.4} + \frac{7.68}{1.4} + 0.64 = 7.04\,\text{s}, \\[0.4em]
 S_2 &= \frac{T_1}{T_2} = \frac{9.6}{7.04} \approx 1.36
 \end{aligned}
 \]
@@ -318,7 +318,7 @@ S_2 &= \frac{T_1}{T_2} = \frac{9.6}{7.04} \approx 1.36
 
 \[
 \begin{aligned}
-T_4 &= \frac{1.28}{2.8} + \frac{7.68}{2.8} + 0.64 = 3.84\,\text{s}, \\
+T_4 &= \frac{1.28}{2.8} + \frac{7.68}{2.8} + 0.64 = 3.84\,\text{s}, \\[0.4em]
 S_4 &= \frac{T_1}{T_4} = \frac{9.6}{3.84} = 2.5
 \end{aligned}
 \]
@@ -327,7 +327,7 @@ S_4 &= \frac{T_1}{T_4} = \frac{9.6}{3.84} = 2.5
 
 \[
 \begin{aligned}
-T_8 &= \frac{1.28}{5.6} + \frac{7.68}{5.6} + 0.64 = 2.24\,\text{s}, \\
+T_8 &= \frac{1.28}{5.6} + \frac{7.68}{5.6} + 0.64 = 2.24\,\text{s}, \\[0.4em]
 S_8 &= \frac{T_1}{T_8} = \frac{9.6}{2.24} \approx 4.29
 \end{aligned}
 \]
@@ -421,8 +421,8 @@ $$
 $$
 \boxed{
 \begin{aligned}
-MIPS &= \frac{Instruction~count}{Execution~time \times 10^6} \\
-	&= \frac{Instruction~count}{\left(\frac{Instruction~count \times CPI}{Clock~rate}\right) \times 10^6} \\
+MIPS &= \frac{Instruction~count}{Execution~time \times 10^6} \\[0.4em]
+	&= \frac{Instruction~count}{\left(\frac{Instruction~count \times CPI}{Clock~rate}\right) \times 10^6} \\[0.4em]
 	&= \frac{Clock~rate}{CPI \times 10^6}
 \end{aligned}
 }
