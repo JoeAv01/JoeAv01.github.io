@@ -26,6 +26,16 @@
   background: rgba(var(--content-tabs-example-color), 0.18);
 }
 
+.content-tabs--example > .content-tabs__heading {
+  width: 100%;
+  cursor: pointer;
+  list-style: none;
+}
+
+.content-tabs--example > .content-tabs__heading::-webkit-details-marker {
+  display: none;
+}
+
 .content-tabs__heading-icon {
   display: inline-flex;
   flex: 0 0 auto;
@@ -41,6 +51,26 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.content-tabs__toggle {
+  flex: 0 0 auto;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-inline-start: auto;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: rotate(-45deg);
+  transition: transform 0.18s ease;
+}
+
+.content-tabs--example[open] .content-tabs__toggle {
+  transform: rotate(45deg);
+}
+
+.content-tabs--example > .content-tabs__heading:focus-visible {
+  outline: 2px solid rgb(var(--content-tabs-example-color));
+  outline-offset: -2px;
 }
 
 .content-tabs__list {

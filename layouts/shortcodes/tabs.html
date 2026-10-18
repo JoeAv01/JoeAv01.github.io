@@ -8,6 +8,10 @@
 {{- if not (in (slice "default" "example") $variant) -}}
   {{- errorf "tabs shortcode received unsupported variant %q: %s" $variant .Position -}}
 {{- end -}}
+{{- $openValue := lower (printf "%v" (.Get "open" | default "true")) -}}
+{{- if and (eq $variant "example") (not (in (slice "true" "false") $openValue)) -}}
+  {{- errorf "example tabs shortcode open parameter must be true or false: %s" .Position -}}
+{{- end -}}
 {{- .Page.Store.Set "hasTabs" true -}}
 {{- $content := .Inner -}}
 {{- $tabs := .Scratch.Get "tabs" -}}
@@ -15,15 +19,18 @@
   {{- errorf "tabs shortcode requires at least one nested tab: %s" .Position -}}
 {{- end -}}
 
-<div class="content-tabs{{ if eq $variant "example" }} content-tabs--example{{ end }}" data-tabs id="{{ $groupID }}">
-  {{- if eq $variant "example" }}
-  <div class="content-tabs__heading">
+{{- if eq $variant "example" }}
+<details class="content-tabs content-tabs--example" data-tabs id="{{ $groupID }}"{{ if eq $openValue "true" }} open{{ end }}>
+  <summary class="content-tabs__heading">
     <span class="content-tabs__heading-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path d="M4 20h4l11-11-4-4L4 16v4Zm9.5-13.5 4 4M14 20h6"/></svg>
     </span>
     <span>{{ $label }}</span>
-  </div>
-  {{- end }}
+    <span class="content-tabs__toggle" aria-hidden="true"></span>
+  </summary>
+{{- else }}
+<div class="content-tabs" data-tabs id="{{ $groupID }}">
+{{- end }}
   <div class="content-tabs__list" role="tablist" aria-label="{{ $label }}">
     {{- range $tabs }}
     <button class="content-tabs__tab" type="button" role="tab"
@@ -37,4 +44,8 @@
   <div class="content-tabs__panels">
     {{- $content }}
   </div>
+{{- if eq $variant "example" }}
+</details>
+{{- else }}
 </div>
+{{- end }}
