@@ -260,7 +260,7 @@ $$
 - 不同的指令有不同的 CPI，它与指令分布（instruction mix）有关，比如加减操作少于乘除
 - 时间是唯一对计算机性能进行测量的完成而可靠的指标
 
-> [!NOTE] 例子
+> [!NOTE]- 例子
 >
 > {{< center-image src="images/pcs/1.6.2.png" alt="collections" width="70%" >}}
 
