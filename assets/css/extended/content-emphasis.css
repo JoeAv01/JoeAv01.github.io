@@ -1,0 +1,12 @@
+:root {
+  --content-strong-color: #996515;
+}
+
+:root[data-theme="dark"] {
+  --content-strong-color: #e6c07b;
+}
+
+/* Color Markdown emphasis while preserving heading, link, and UI colors. */
+.md-content strong:not(:where(h1, h2, h3, h4, h5, h6, a, pre, code, nav, .admonition__title, .content-tabs__heading, .katex) *) {
+  color: var(--content-strong-color);
+}
