@@ -92,13 +92,13 @@
 .admonition__content {
   display: block;
   min-height: 0;
-  padding: 0.02rem 1rem 0.85rem;
+  padding: 15px 1rem 0.85rem;
   background: var(--theme);
 }
 
-/* Match the paragraph spacing below a non-collapsible card's title. */
-.admonition--collapsible > .admonition__content {
-  padding-top: calc(var(--content-gap) + 0.02rem);
+/* Use content padding for spacing instead of the theme's paragraph margin. */
+.md-content .admonition > .admonition__title {
+  margin-bottom: 0;
 }
 
 :root[data-theme="dark"] .admonition__title {
