@@ -96,6 +96,11 @@
   background: var(--theme);
 }
 
+/* Match the paragraph spacing below a non-collapsible card's title. */
+.admonition--collapsible > .admonition__content {
+  padding-top: calc(var(--content-gap) + 0.02rem);
+}
+
 :root[data-theme="dark"] .admonition__title {
   background: rgba(var(--admonition-color), 0.24);
 }
