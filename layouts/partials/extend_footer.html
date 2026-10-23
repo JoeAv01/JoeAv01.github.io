@@ -1,3 +1,8 @@
+{{- with resources.Get "js/header-auto-hide.js" }}
+  {{- $headerAutoHide := . | minify | fingerprint }}
+<script src="{{ $headerAutoHide.RelPermalink }}" integrity="{{ $headerAutoHide.Data.Integrity }}" defer></script>
+{{- end }}
+
 {{- $hasSidebarSettings := and (in (slice "posts" "zju-courses" "csdiy") .Section) (or .IsSection .IsPage) }}
 {{- if $hasSidebarSettings }}
 <div class="sidebar-settings">

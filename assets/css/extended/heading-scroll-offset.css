@@ -4,5 +4,5 @@
 .md-content h4,
 .md-content h5,
 .md-content h6 {
-  scroll-margin-top: calc(var(--header-height) + 16px);
+  scroll-margin-top: calc(var(--site-header-height) + 16px);
 }

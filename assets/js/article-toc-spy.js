@@ -23,8 +23,9 @@
     .flatMap((navigation) => [...navigation.querySelectorAll(":scope > ul > li")]);
 
   const activationOffset = () => {
-    const header = document.querySelector(".header");
-    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+    const headerHeight = parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue("--visible-header-height")
+    ) || 0;
     return headerHeight + 96;
   };
 
@@ -111,6 +112,7 @@
     requestUpdate();
   }, { passive: true });
   window.addEventListener("resize", requestUpdate);
+  window.addEventListener("header-visibility-change", requestUpdate);
   window.addEventListener("hashchange", requestUpdate);
   updateActiveHeading();
 })();

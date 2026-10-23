@@ -1,6 +1,8 @@
 :root {
   --header-background: rgb(200, 230, 201);
   --header-border: rgb(165, 214, 167);
+  --site-header-height: var(--header-height);
+  --visible-header-height: var(--site-header-height);
 }
 
 :root[data-theme="dark"] {
@@ -14,6 +16,17 @@
   z-index: 100;
   background: var(--header-background);
   border-bottom: 1px solid var(--header-border);
+  transition: transform 180ms ease;
+}
+
+.header--hidden {
+  transform: translateY(-100%);
+}
+
+/* Reveal before the browser scrolls a keyboard-focused link into view. */
+.header:has(:focus-visible) {
+  transform: translateY(0);
+  transition: none;
 }
 
 .logo a img {
@@ -35,4 +48,10 @@
   width: 18px;
   height: 18px;
   transform: translateY(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    transition: none;
+  }
 }
