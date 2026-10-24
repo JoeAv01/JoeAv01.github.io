@@ -116,6 +116,8 @@ op rd, rs1, rs2
 - 主要包含算术（arithmetic）、逻辑（logic）和移位（shift）指令，并且所有的操作数都存储在寄存器（registers）中
 - R 型指令使用操作码 `0110011`（普通整数运算）和 `0111011`（32 位字操作）。
 
+来看一个例子
+
 {{< center-image src="images/pcs/2.2.2.png" alt="R-type instruction format" width="70%" >}}
 - 这是一个 R 型指令，总长度为 32 位，分为 6 个字段
 - funct7、funct3 为功能码用于区分同类型的不同指令
@@ -123,7 +125,6 @@ op rd, rs1, rs2
 - 箭头展示了汇编指令中的寄存器与机器码中对应字段的映射关系
 
 
-## 2.3 Operands of the Computer Hardware
 ### Register Operands
 - RISC-V 有 32 个 64 位的寄存器
 	- 双字（doubleword）：64-bit data
@@ -217,7 +218,7 @@ op rd, rs1, rs2
 
 
 
-## 2.4 Signed and Unsigned Numbers
+## 2.3 Signed and Unsigned Numbers
 ### Unsigned Binary Integers
 无符号二进制数
 $$
@@ -277,7 +278,7 @@ $$
 4023=(4096-1)-64-8=1111 1111 1111_2-100 0000_2- 1000_2 =1111 1011 0111_2 = fb7_{16}
 $$
 
-## 2.5 Encoding of integers
+## 2.4 Encoding of integers
 
 ### 2s-Complement Signed Integers
 计算机使用补码来表示有符号整数。补码表示能实现 + 和 – 的统一：
@@ -408,7 +409,7 @@ $$ -x = \bar{x} + 1 $$
 > $$\boxed{-2147483648\leq x6\leq-2147483521}$$
 
 
-## 2.6 Representing Instructions in the Computer
+## 2.5 Representing Instructions in the Computer
 
 ### Representing Instructions
 指令以二级制的形式编码，被称为机器码。这种指令的设计被称为指令格式。
@@ -492,7 +493,7 @@ S 指令采取不同的立即数格式
 {{< center-image src="images/pcs/2.6.10.png" alt="stored-program computer" width="70%" >}}
 
 
-## 2.7 Logical Operations
+## 2.6 Logical Operations
 > [!NOTE]- 常用逻辑运算
 > {{< center-image src="images/pcs/2.7.1.png" alt="logical operations" width="70%" >}}
 
@@ -536,7 +537,7 @@ S 指令采取不同的立即数格式
 - 而与立即数做加法运算时，将立即数进行符号扩展
 
 
-## 2.8 Instructions for Making Decisions
+## 2.7 Instructions for Making Decisions
 
 ### Making Decisions
 我们经常需要基于输入的数据或计算过程产生的数据，执行不同的程序
@@ -635,7 +636,7 @@ Example:
 `bgeu x20, x11, IndexOutOfBounds`
 
 
-## 2.9 Supporting Procedures in Computer Hardware
+## 2.8 Supporting Procedures in Computer Hardware
 ### Procedure Calling
 过程调用（Procedure Calling）是指调用者将控制权转移给被调用过程，并在被调用过程执行完毕后返回到原调用点的一种程序机制。在 RISC-V 中，参数通常放在 x10 – x17，返回地址保存在 x1，结果通常放在 x10–x11。
 
@@ -1027,7 +1028,7 @@ RISC-V 程序的内存空间通常划分为以下几个区域：
 - 全局指针（Global Pointer，`gp`），即 `x3`，指向存放全局变量的区域。
 - 动态分配的存储空间（例如通过 `malloc()` 分配的内存）位于堆（Heap）中。
 
-## 2.10 Communicating with People
+## 2.9 Communicating with People
 ### Character Data
 二进制编码字符集：
 - ASCII: 128 字符
@@ -1091,7 +1092,7 @@ Unicode 是大多数人类语言中字母表的通用编码：
 
 
 
-## 2.11 RISC-V Addressing for Wide Immediates and Addresses
+## 2.10 RISC-V Addressing for Wide Immediates and Addresses
 
 ### 32-bit Constants
 - 大多数常量的数值较小，因此 12 位立即数（Immediate）通常足以满足需求。
@@ -1210,7 +1211,7 @@ $$\text{Offset}=80000-80020=-20 $$
 最终推断为 `add x16, x15, x5`
 
 
-## 2.12 Parallelism and Instructions: Synchronization
+## 2.11 Parallelism and Instructions: Synchronization
 
 ### Synchronization
 
@@ -1289,7 +1290,7 @@ again:
 >
 > 由于条件存储会在另一个 store 尝试加载保留地址或异常之后失败，因此必须注意选择在两个指令之间插入哪些指令。特别是，只有保留加载／条件存储块中的整点算术、前向分支和后向分支被允许执行且不会出现问题；否则，可能会产生死锁情况一一由于重复的页错误，处理器永远无法完成 `sc.d`。此外，保留加载和条件存储之间的指令数应该很少，以将由于不相关事件或竞争处理器导致条件存储频繁失败的可能性降至最低。
 
-## 2.13 Translating and Starting a Program
+## 2.12 Translating and Starting a Program
 ### Translation and Startup
 将存储（磁盘或闪存）文件中的 C 程序转换为计算机上可运行程序的有四个步骤。下图显示了转换的层次结构。
 
@@ -1427,11 +1428,11 @@ L2:
 {{< center-image src="images/pcs/2.13.3.png" alt="starting Java applications" width="70%" >}}
 
 
-## 2.14 A C Sort Example to Put It All Together
+## 2.13 A C Sort Example to Put It All Together
 这个部分老师上课没讲，此处略，可以自己看 ppt，以下部分同理
-## 2.15 Arrays versus Pointers
+## 2.14 Arrays versus Pointers
 
-## 2.16 Real Stuff: MIPS Instructions
+## 2.15 Real Stuff: MIPS Instructions
 ### MIPS Instructions
 MIPS 是 RISC-V 的商业化前身之一，两者均采用精简指令集架构，具有相似的基本指令设计。
 - 指令长度：采用固定的 32 位指令。
@@ -1452,11 +1453,11 @@ MIPS 和 RISC-V 在实现大小比较（`<`、`<=`、`>`、`>=`）时采用不�
 ### ARM v8 Instructions
 
 
-## 2.17 Real Stuff: x86 Instructions
+## 2.16 Real Stuff: x86 Instructions
 
-## 2.18  The Rest of the RISC-V Instruction Set
+## 2.17  The Rest of the RISC-V Instruction Set
 
-## 2.19 Fallacies and Pitfalls
+## 2.18 Fallacies and Pitfalls
 ### Fallacies
 - 误区一：指令功能越强，性能越高：
 错误观点：功能更强大的指令能够减少程序所需的指令数量，因此提高性能。
