@@ -179,8 +179,29 @@ RISC-V 和 x86 不要求 words 在内存对齐，MIPS 对此有限制。
 
 {{< center-image src="images/pcs/2.3.3.png" alt="memory address" width="70%" >}}
 
-> [!NOTE]- 例子
-> {{< center-image src="images/pcs/2.3.4.png" alt="memory addressing example" width="70%" >}}
+{{< tabs id="chapter-2-exercise-2-3" label="作业 2.3" variant="example" open="false" >}}
+
+{{% tab title="题目" %}}
+对于以下C语句，请编写相应的RISC-V汇编代码。
+
+假设变量 f、g、h、i 和 j 分别分配给寄存器x5、x6、x7、×28 和 x29。假设数组A和B的基地址分别在寄存器x10 和 x11。数组的成员是 long long int
+
+`B[8] = A[i-j]`
+{{% /tab %}}
+
+{{% tab title="答案" %}}
+答案（AI 生成）：
+
+```asm
+sub x5, x28, x29        // x5 = i - j
+slli x5, x5, 3          // x5 = (i - j) * 8 (左移3位相当于乘以8，因为元素大小为8字节)
+add x5, x5, x10         // x5 = A的基地址 + (i - j) * 8，即 A[i-j] 的实际内存地址
+ld x6, 0(x5)            // x6 = A[i-j]
+sd x6, 64(x11)          // 将 x6 的值存入内存地址 (x11 + 64)，即 B[8] = x6
+```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 
 ### Registers vs. Memory
@@ -211,21 +232,6 @@ RISC-V 和 x86 不要求 words 在内存对齐，MIPS 对此有限制。
 `add x22, x23, x0   // 也称为伪指令`
 
 
-> [!NOTE]- 作业题 2.3
->  对于以下C语句，请编写相应的RISC-V汇编代码。
->
->  假设变量 f、g、h、i 和 j 分别分配给寄存器x5、x6、x7、×28 和 x29。假设数组A和B的基地址分别在寄存器x10 和 x11。数组的成员是 long long int
->
->  `B[8] = A[i-j]`
->
->  答案（AI 生成）：
->  ```asm
-> sub x5, x28, x29        // x5 = i - j
-> slli x5, x5, 3          // x5 = (i - j) * 8 (左移3位相当于乘以8，因为元素大小为8字节)
-> add x5, x5, x10         // x5 = A的基地址 + (i - j) * 8，即 A[i-j] 的实际内存地址
-> ld x6, 0(x5)            // x6 = A[i-j]
-> sd x6, 64(x11)          // 将 x6 的值存入内存地址 (x11 + 64)，即 B[8] = x6
->  ```
 
 
 
