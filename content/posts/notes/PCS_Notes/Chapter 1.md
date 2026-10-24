@@ -1,5 +1,5 @@
 ---
-title: Chapter 1 -- Computer Abstractions and Technology
+title: Chapter 1
 weight: 10
 ---
 
