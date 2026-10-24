@@ -126,11 +126,13 @@ op rd, rs1, rs2
 
 
 ### Register Operands
-- RISC-V 有 32 个 64 位的寄存器
-	- 双字（doubleword）：64-bit data
-	- 字（word）：32-bit data
+RISC-V 有 32 个 64 位的寄存器
+- 双字（doubleword）：64-bit data
+- 字（word）：32-bit data
 
-- 设计原则 2：更小则更快（Smaller is faster）
+> [!TIP] 设计原则 2：更小则更快（Smaller is faster）
+>
+> 简单来讲，数量过多的寄存器可能会增加时钟周期，因为电信号传输的距离越远，所花费的时间就越长。
 
 > [!NOTE] 例子
 > C code：
