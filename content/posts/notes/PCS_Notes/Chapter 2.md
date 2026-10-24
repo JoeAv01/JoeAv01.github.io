@@ -105,6 +105,12 @@ e.g. `add a, b, c  // a gets b + c`
 
 R 型指令（R-type Instruction）是 RISC-V 中用于寄存器间运算的一种指令格式：它从源寄存器 `rs1`、`rs2` 读取操作数，将运算结果写入目标寄存器 `rd`。
 
+```asm
+op rd, rs1, rs2
+```
+
+这里的 `op` 表示具体的运算指令名，例如 `add`。
+
 它的特点包括：
 - 这类指令不需要立即数（immediate value）、目标偏移量（target offset）、内存地址位移（memory address displacement）或内存地址来指定操作数。
 - 主要包含算术（arithmetic）、逻辑（logic）和移位（shift）指令，并且所有的操作数都存储在寄存器（registers）中
