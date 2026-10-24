@@ -3,6 +3,10 @@ title: Chapter 1 -- Computer Abstractions and Technology
 weight: 10
 ---
 
+> [!NOTE]- 本章概览
+>
+> 本章为总体性的介绍，知识点较杂，重点为性能一节，其他部分以了解为主
+
 ## 1.1 Introduction
 
 - The Computer Revolution

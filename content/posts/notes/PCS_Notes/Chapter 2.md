@@ -3,13 +3,19 @@ title: "Chapter 2 -- Instructions: Language of the Computer"
 weight: 20
 ---
 
+> [!NOTE]- 本节概览
+>
+
 ## 2.1 Introduction
+
 ### Instruction Set
-**指令系统（Instruction Set）**：The repertoire of instructions of a computer（书上的定义是被一个给定体系结构所理解的命令词汇表）
+**指令系统（Instruction Set）**：The repertoire of instructions of a computer
+
+书上的定义是被一个给定体系结构所理解的命令词汇表。
 
 - 不同的计算机有不同的指令系统，但是在一些方面有相似之处
 	- 早期计算机有十分简单的指令系统，受制于集成电路等因素
-	- 随着技术的进步而越来越复杂（x86)。
+	- 随着技术的进步而越来越复杂（x86）。
 	- 现代计算机也有简单的指令系统（MIPS、RISC-V）
 
 - 储存程序思想：指令与多种类型的数据不加区别地存储在存储器中并因此易于更改，因此产生了存储程序计算机
@@ -20,62 +26,71 @@ weight: 20
 - 类似的 ISA 在嵌入式核心市场上有很大的份额。
 
 接下来是对 RISC-V 的介绍
-#### 32 Registers
-- 这里的“32 个寄存器”特指 32 个通用整数寄存器（x0 - x31），而不包含底部的浮点寄存器。
-- 一条指令只能对存放在寄存器中的数据执行算术操作。
-- 每个寄存器有固定的功能约定
+### 32 Registers
+- 这里的“32 个寄存器”指 `x0`–`x31` 这 32 个整数寄存器。RV32 中每个寄存器为 32 位，RV64 中为 64 位；本章后续主要使用 RV64 的例子。
+- RISC-V 采用加载／存储架构：算术指令不直接操作内存中的数据，而是使用寄存器中的数据或指令中的立即数；访问内存需要 load/store 指令。
+- 除恒为 0 的 `x0` 外，下表中的用途主要是 ABI（应用程序二进制接口）的调用约定，并非硬件将每个寄存器限定为唯一用途。
 
-|  Register number   |       Usage        | Saver |
-| :----------------: | :----------------: | :---: |
-|         x0         |       常量值 0        |  不适用  |
-|         x1         |        返回地址        |  调用者  |
-|      x2 or sp      |        栈指针         | 被调用者  |
-|      x3 or gp      |        全局指针        |       |
-|      x4 or tp      |        线程指针        |       |
-| x5 – x7, x28 – x31 |   临时寄存器（用于临时数据）    |  调用者  |
-|     x10 – x17      | 参数或返回值（用于传参和接收返回值） |  调用者  |
-|         x8         |     保存寄存器/帧指针      | 被调用者  |
-|   x9, x18 – x27    |       保存寄存器        | 被调用者  |
-|      f0 - f31      |       浮点寄存器        |       |
+| 寄存器编号 | ABI 名称 | 约定用途 | 保存方 |
+| :--- | :--- | :--- | :--- |
+| `x0` | `zero` | 常量 0，写入会被忽略 | 不适用 |
+| `x1` | `ra` | 返回地址 | 调用者 |
+| `x2` | `sp` | 栈指针 | 被调用者 |
+| `x3` | `gp` | 全局指针 | 不分配 |
+| `x4` | `tp` | 线程指针 | 不分配 |
+| `x5`–`x7`、`x28`–`x31` | `t0`–`t2`、`t3`–`t6` | 临时寄存器 | 调用者 |
+| `x8` | `s0` / `fp` | 保存寄存器，也可用作帧指针 | 被调用者 |
+| `x9`、`x18`–`x27` | `s1`、`s2`–`s11` | 保存寄存器 | 被调用者 |
+| `x10`–`x11` | `a0`–`a1` | 函数参数或返回值 | 调用者 |
+| `x12`–`x17` | `a2`–`a7` | 函数参数 | 调用者 |
 
-Saver 列表示该寄存器由谁负责保存。
+“调用者保存”指调用者如果在函数调用后仍需要原值，应在调用前自行保存；“被调用者保存”指被调用者如果修改了该寄存器，应在返回前恢复。`gp` 和 `tp` 不分配给普通临时变量。
 
-#### Instructions
+浮点寄存器 `f0`–`f31` 属于另一组寄存器，不计入上面的 32 个整数寄存器。
 
-| 类别          | 英文名称 (中文含义)                        | 指令              | 含义/操作                    |
-| :---------- | :--------------------------------- | :-------------- | :----------------------- |
-| **算术运算**    | add (加法)                           | add x5, x6, x7  | x5 = x6 + x7             |
-|             | subtract (减法)                      | sub x5, x6, x7  | x5 = x6 - x7             |
-|             | add immediate (立即数加法)              | addi x5, x6, 20 | x5 = x6 + 20             |
-|             | ......                             |                 |                          |
-| **数据传送**    | load double word (加载双字)            | ld x5, 40(x6)   | x5=Mem[x6+40]            |
-|             | store double word (存储双字)           | sd x5, 40(x6)   | Mem[x6+40]=x5            |
-|             | load word (加载字)                    | lw x5, 40(x6)   | x5=Mem[x6+40]            |
-|             | load word unsigned (加载无符号字)        | lwu x5, 40(x6)  | x5=Mem[x6+40]            |
-|             | store word (存储字)                   | sw x5, 40(x6)   | Mem[x6+40]=x5            |
-|             | load upper immediate (加载高 20 位立即数) | lui x5, 0x12345 | x5=0x12345000            |
-|             | ......                             |                 |                          |
-| **逻辑和移位运算** | and (按位与)                          | and x5, x6, x7  | x5 = x6 & x7             |
-|             | or (按位或)                           | or x5, x6, x7   | x5 = x6 \| x7            |
-|             | xor (按位异或)                         | xor x5, x6, x7  | x5 = x6 ^ x7             |
-|             | shift left logical (逻辑左移)          | sll x5, x6, x7  | x5 = x6 << x7            |
-|             | shift right logical (逻辑右移)         | srl x5, x6, x7  | x5 = x6 >> x7            |
-|             | shift right arithmetic (算术右移)      | sra x5, x6, x7  | x5 = x6 >> x7            |
-|             | ......                             |                 |                          |
-| **条件分支**    | branch on equal (相等时分支)            | beq x5, x6, 100 | if (x5==x6) go to PC+100 |
-|             | branch on not equal (不相等时分支)       | bne x5, x6, 100 | if (x5!=x6) go to PC+100 |
-|             | ......                             |                 |                          |
-| **无条件跳转**   | jump and link (跳转并链接)              | jal x1, 100     | x1=PC+4; go to PC+100    |
-|             | jump and link register (寄存器跳转并链接)  | jal x1, 100(x5) | x1=PC+4; go to x5+100    |
-|             |                                    |                 |                          |
+### Instructions
+
+> [!NOTE]- 指令概览
+>
+> | 类别          | 英文名称 (中文含义)                        | 指令              | 含义/操作                    |
+> | :---------- | :--------------------------------- | :-------------- | :----------------------- |
+> | **算术运算**    | add (加法)                           | add x5, x6, x7  | x5 = x6 + x7             |
+> |             | subtract (减法)                      | sub x5, x6, x7  | x5 = x6 - x7             |
+> |             | add immediate (立即数加法)              | addi x5, x6, 20 | x5 = x6 + 20             |
+> |             | ......                             |                 |                          |
+> | **数据传送**    | load double word (加载双字)            | ld x5, 40(x6)   | x5=Mem[x6+40]            |
+> |             | store double word (存储双字)           | sd x5, 40(x6)   | Mem[x6+40]=x5            |
+> |             | load word (加载字)                    | lw x5, 40(x6)   | x5=Mem[x6+40]            |
+> |             | load word unsigned (加载无符号字)        | lwu x5, 40(x6)  | x5=Mem[x6+40]            |
+> |             | store word (存储字)                   | sw x5, 40(x6)   | Mem[x6+40]=x5            |
+> |             | load upper immediate (加载高 20 位立即数) | lui x5, 0x12345 | x5=0x12345000            |
+> |             | ......                             |                 |                          |
+> | **逻辑和移位运算** | and (按位与)                          | and x5, x6, x7  | x5 = x6 & x7             |
+> |             | or (按位或)                           | or x5, x6, x7   | x5 = x6 \| x7            |
+> |             | xor (按位异或)                         | xor x5, x6, x7  | x5 = x6 ^ x7             |
+> |             | shift left logical (逻辑左移)          | sll x5, x6, x7  | x5 = x6 << x7            |
+> |             | shift right logical (逻辑右移)         | srl x5, x6, x7  | x5 = x6 >> x7            |
+> |             | shift right arithmetic (算术右移)      | sra x5, x6, x7  | x5 = x6 >> x7            |
+> |             | ......                             |                 |                          |
+> | **条件分支**    | branch on equal (相等时分支)            | beq x5, x6, 100 | if (x5==x6) go to PC+100 |
+> |             | branch on not equal (不相等时分支)       | bne x5, x6, 100 | if (x5!=x6) go to PC+100 |
+> |             | ......                             |                 |                          |
+> | **无条件跳转**   | jump and link (跳转并链接)              | jal x1, 100     | x1=PC+4; go to PC+100    |
+> |             | jump and link register (寄存器跳转并链接)  | jal x1, 100(x5) | x1=PC+4; go to x5+100    |
+> |             |                                    |                 |                          |
 
 这张表就是 ppt 里的，需要注意 ppt 里把 `store double word` 写成了 `sw`，实际上是 `sd`。
 
-word：32 位
-double word：64 位
-PC：一个寄存器，指向当前指令内存地址
+- **字（word）**：32 位，即 4 字节。表中的 `lw`、`sw` 分别读取和存储一个字。
+- **双字（doubleword）**：64 位，即 8 字节。表中的 `ld`、`sd` 分别读取和存储一个双字；即使在 RV64 中，一个字仍是 32 位。
+- **程序计数器（PC，Program Counter）**：保存当前指令的地址，通常随指令执行顺序前进；分支或跳转指令可以改变后续执行的位置。PC 不属于前面列出的 `x0`–`x31` 整数寄存器。
+
+了解这些基本概念后，下面从最常见的算术操作开始，看看 RISC-V 指令如何完成计算。
 
 ## 2.2 Operations of the Computer Hardware
+
+本节以加减法为例，先看算术指令如何安排操作数，再看它在机器码中的表示。
+
 ### Arithmetic Operations
 - 加减都是三个操作数，所有算术运算都是这个形式，第一个是目的操作数，后两个是源操作数
 e.g., `add a, b, c  // a gets b + c`
