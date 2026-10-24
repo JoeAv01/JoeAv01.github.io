@@ -3,7 +3,7 @@
 }
 
 :root[data-theme="dark"] {
-  --content-strong-color: #0f766e;
+  --content-strong-color: #6ca8a4;
 }
 
 /* Color Markdown emphasis while preserving heading, link, and UI colors. */
