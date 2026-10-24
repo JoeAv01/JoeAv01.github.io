@@ -7,8 +7,8 @@
 }
 
 .content-tabs--example {
-  --content-tabs-example-color: 34, 211, 238;
-  --content-tabs-example-text-color: 8, 145, 178;
+  --content-tabs-example-color: 8, 145, 178;
+  --content-tabs-example-text-color: 14, 116, 144;
   --content-tabs-example-tab-color: 13, 148, 136;
   background: var(--theme);
   border: 1px solid rgba(var(--content-tabs-example-color), 0.72);
@@ -77,11 +77,10 @@
 
 .content-tabs__list {
   display: flex;
+  flex-wrap: wrap;
   gap: 0;
-  overflow-x: auto;
   background: var(--code-bg);
   border-bottom: 1px solid var(--border);
-  scrollbar-width: thin;
 }
 
 .content-tabs--example .content-tabs__list {
@@ -92,12 +91,14 @@
 .content-tabs__tab {
   position: relative;
   flex: 0 0 auto;
+  max-width: 100%;
   padding: 0.7rem 1.1rem;
   color: var(--secondary);
   font: inherit;
   font-weight: 600;
   line-height: 1.4;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
   background: transparent;
   border: 0;
   cursor: pointer;
@@ -110,7 +111,7 @@
 .content-tabs__tab::after {
   position: absolute;
   right: 0.75rem;
-  bottom: -1px;
+  bottom: 0;
   left: 0.75rem;
   height: 2px;
   content: "";
@@ -171,8 +172,8 @@
 }
 
 :root[data-theme="dark"] .content-tabs--example {
-  --content-tabs-example-text-color: 103, 232, 249;
-  --content-tabs-example-tab-color: 45, 212, 191;
+  --content-tabs-example-text-color: 87, 171, 187;
+  --content-tabs-example-tab-color: 41, 172, 155;
 }
 
 :root[data-theme="dark"] .content-tabs__heading {
