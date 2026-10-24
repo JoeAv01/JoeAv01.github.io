@@ -89,16 +89,17 @@ weight: 20
 
 ## 2.2 Operations of the Computer Hardware
 
-本节以加减法为例，先看算术指令如何安排操作数，再看它在机器码中的表示。
-
 ### Arithmetic Operations
-- 加减都是三个操作数，所有算术运算都是这个形式，第一个是目的操作数，后两个是源操作数
-e.g., `add a, b, c  // a gets b + c`
+加减操作都使用三个操作数，所有算术运算都是这个形式，第一个是目的操作数，后两个是源操作数
+
+e.g. `add a, b, c  // a gets b + c`
+
 其中//之后的是注释
 
-- 设计原则 1：简洁源于规整（Simplicity favors regularity）
-	- 规整使得实现更简单
-	- 简单实现低成本下的高性能
+> [!TIP] 设计原则 1：简洁源于规整（Simplicity favors regularity）
+>
+> - 规整使得实现更简单
+> - 简单实现低成本下的高性能
 
 ### R-type Instruction
 
