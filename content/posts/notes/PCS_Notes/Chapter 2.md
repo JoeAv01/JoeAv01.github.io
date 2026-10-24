@@ -89,7 +89,9 @@ weight: 20
 
 ## 2.2 Operations of the Computer Hardware
 
-### Arithmetic Operations
+### Arithmetic and Register Operands
+
+#### Arithmetic Operations
 加减操作都使用三个操作数，所有算术运算都是这个形式，第一个是目的操作数，后两个是源操作数
 
 e.g. `add a, b, c  // a gets b + c`
@@ -101,7 +103,7 @@ e.g. `add a, b, c  // a gets b + c`
 > - 规整使得实现更简单
 > - 简单实现低成本下的高性能
 
-### R-type Instruction
+#### R-type Instruction
 
 R 型指令（R-type Instruction）是 RISC-V 中用于寄存器间运算的一种指令格式：它从源寄存器 `rs1`、`rs2` 读取操作数，将运算结果写入目标寄存器 `rd`。
 
@@ -125,7 +127,7 @@ op rd, rs1, rs2
 - 箭头展示了汇编指令中的寄存器与机器码中对应字段的映射关系
 
 
-### Register Operands
+#### Register Operands
 RISC-V 有 32 个 64 位的寄存器
 - 双字（doubleword）：64-bit data
 - 字（word）：32-bit data
@@ -150,7 +152,9 @@ RISC-V 有 32 个 64 位的寄存器
 
 
 
-### Memory Operands
+### Memory Access
+
+#### Memory Operands
 寄存器数量有限，数组、结构体和动态分配的复合数据通常需要放在内存中。
 
 RISC-V 的算术指令不直接访问内存：需要使用内存中的值时，先通过 load 将其读入寄存器；计算结果需要保存在内存中时，再通过 store 写回。
@@ -172,7 +176,7 @@ RISC-V 的算术指令不直接访问内存：需要使用内存中的值时，�
 
 RISC-V 和 x86 不要求 words 在内存对齐，MIPS 对此有限制。
 
-### Memory Address
+#### Memory Address
 编译器负责安排数据在内存中的布局，并在内部表中记录变量的位置或相对偏移量。生成 load/store 指令时，它会利用这些信息确定访问地址；RISC-V 通常通过“基址寄存器中的地址 + 字节偏移量”计算实际地址。
 
 例如，`long long int d[10]` 的每个元素占 8 字节。如果 `d[0]` 的基地址为 `B`，那么 `d[i]` 的地址就是 `B + i × 8`。
@@ -206,7 +210,7 @@ sd x6, 64(x11)          // 将 x6 的值存入内存地址 (x11 + 64)，即 B[8]
 {{< /tabs >}}
 
 
-### Registers vs. Memory
+#### Registers vs. Memory
 
 寄存器比内存访问速度更快。
 
@@ -216,7 +220,9 @@ sd x6, 64(x11)          // 将 x6 的值存入内存地址 (x11 + 64)，即 B[8]
 
 因此，**寄存器优化非常重要！**
 
-### Immediate Operands
+### Constants in Instructions
+
+#### Immediate Operands
 
 一条指令可能需要一个常量作为输入。直接写在指令中的常量称为**立即数（immediate）**。例如，`addi x22, x22, 4` 将寄存器 `x22` 的值加 4，再写回 `x22`。
 
@@ -226,7 +232,7 @@ RISC-V 没有单独的减立即数指令，可以用加相反数实现减法：`
 >
 > 小常量很常见。把它作为立即数写入指令，可以避免先用加载指令从内存中读取该常量。
 
-### The Constant Zero
+#### The Constant Zero
 
 寄存器 `x0` 的值始终为常量 0，无法被覆盖。利用这个特性，可以完成一些常见操作，例如将一个寄存器中的值复制到另一个寄存器：
 
