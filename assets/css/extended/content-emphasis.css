@@ -1,9 +1,9 @@
 :root {
-  --content-strong-color: #0f766e;
+  --content-strong-color: #5ecfc0;
 }
 
 :root[data-theme="dark"] {
-  --content-strong-color: #5ecfc0;
+  --content-strong-color: #0f766e;
 }
 
 /* Color Markdown emphasis while preserving heading, link, and UI colors. */
