@@ -522,16 +522,58 @@ S 指令采取不同的立即数格式
 指令格式通过操作码字段中的值来区分：每个格式在第一个字段（opcode）中被分配了一组不同的操作码值，以便硬件知道如何处理指令的其余部分。
 
 
-> [!NOTE]- 例题：将 RISC-V 汇编语言翻译为机器语言
->  C code：`A[30] = h + A[30] + 1;`
->  h 存放于 x21，数组 A 的基地址存于 x10，数组元素是八位
->  那么被编译为
-> {{< center-image src="images/pcs/2.6.5.png" alt="RISC-V translation step 1" width="70%" >}}
-> {{< center-image src="images/pcs/2.6.6.png" alt="RISC-V translation step 2" width="70%" >}}
-> {{< center-image src="images/pcs/2.6.7.png" alt="RISC-V translation step 3" width="70%" >}}
-> {{< center-image src="images/pcs/2.6.8.png" alt="RISC-V translation step 4" width="70%" >}}
-> {{< center-image src="images/pcs/2.6.9.png" alt="RISC-V translation result" width="70%" >}}
->
+{{< tabs id="chapter-2-instruction-encoding-example" label="例题：从 C 语句到 RISC-V 机器码" variant="example" open="false" >}}
+
+{{% tab title="题目" %}}
+将下面的 C 语句翻译为 RISC-V 汇编指令，再写出各指令的机器码：
+
+```c
+A[30] = h + A[30] + 1;
+```
+
+已知 `h` 存放在 `x21`，数组 `A` 的基地址存放在 `x10`，每个数组元素占 8 字节（64 位）。下面使用 `x9` 暂存计算结果。
+{{% /tab %}}
+
+{{% tab title="汇编" %}}
+`A[30]` 相对数组基地址的偏移量为 `30 × 8 = 240` 字节。因此，先读取 `A[30]`，完成加法后再写回同一地址：
+
+```asm
+ld   x9, 240(x10)    # x9 = A[30]
+add  x9, x21, x9     # x9 = h + A[30]
+addi x9, x9, 1       # x9 = h + A[30] + 1
+sd   x9, 240(x10)    # A[30] = x9
+```
+{{% /tab %}}
+
+{{% tab title="编码过程" %}}
+四条指令依次采用 I 型、R 型、I 型和 S 型格式。以 `sd` 为例，其 12 位偏移量 `240` 写成二进制是 `0000 1111 0000`。S 型格式将它分成 `imm[11:5] = 0000111`（7）和 `imm[4:0] = 10000`（16）；待存储的数据来自 `rs2 = x9`，基址来自 `rs1 = x10`。
+
+按图中的字段顺序，`sd` 编码为：
+
+```text
+imm[11:5]   rs2    rs1   funct3  imm[4:0]  opcode
+ 0000111   01001  01010    011      10000    0100011
+```
+
+将这些位拼接，得到 `0x0E953823`。四条指令的机器码汇总如下：
+
+| 汇编指令 | 格式 | 机器码（十六进制） |
+| :--- | :---: | :--- |
+| `ld x9, 240(x10)` | I 型 | `0x0F053483` |
+| `add x9, x21, x9` | R 型 | `0x009A84B3` |
+| `addi x9, x9, 1` | I 型 | `0x00148493` |
+| `sd x9, 240(x10)` | S 型 | `0x0E953823` |
+{{% /tab %}}
+
+{{< tab title="课本原图" >}}
+{{< center-image src="images/pcs/2.6.5.png" alt="例题的汇编指令" width="70%" >}}
+{{< center-image src="images/pcs/2.6.6.png" alt="各指令字段的十进制值" width="70%" >}}
+{{< center-image src="images/pcs/2.6.7.png" alt="指令编码的推导说明" width="70%" >}}
+{{< center-image src="images/pcs/2.6.8.png" alt="各指令字段的二进制值" width="70%" >}}
+{{< center-image src="images/pcs/2.6.9.png" alt="最终十六进制机器码" width="70%" >}}
+{{< /tab >}}
+
+{{< /tabs >}}
 
 ### Stored Program Computers
 指令用二进制表示，就像数据一样
