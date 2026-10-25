@@ -582,40 +582,44 @@ imm[11:5]   rs2    rs1   funct3  imm[4:0]  opcode
 > {{< center-image src="images/pcs/2.7.1.png" alt="logical operations" width="70%" >}}
 
 ### Shift Operations
-移位指令包括 `sll`、`srl`、`sra`，以及将移位量直接写入指令的 I 型指令 `slli`、`srli`、`srai`。
+- 移位操作：`sll`, `slli`, `srl`, `srli`, `sra`, `srai`
+- 逻辑左移：左移，并用 0 填充空位，`slli` 左移 i 位相当于乘以 \(2^i\)（超出寄存器位宽的高位会被丢弃）
+- 逻辑右移：右移，并用 0 填充空位，`srli` 右移 i 位相当于除以 \(2^i\)（仅适用于无符号数）
+- 算术右移：右移，并用符号位填充空位
 
-- 逻辑左移：向左移动，并用 0 填充空位。`slli` 左移 \(i\) 位相当于乘以 \(2^i\)；在本章使用的 RV64 中，超出 64 位的高位会被丢弃。
-- 逻辑右移：向右移动，并用 0 填充空位。对无符号数，`srli` 右移 \(i\) 位相当于除以 \(2^i\) 后取整。
-- 算术右移：向右移动，并用原符号位填充空位。
-
-### Bitwise Operations
-
-1\. AND
-
-与运算常用掩码（mask）选择位：掩码为 1 的位保留原值，掩码为 0 的位被清零。
+### I type Shift Operations
+- I 型移位： `slli`, `srli`, `srai`
+- immed: 移多少位
+### AND Operations
+- 与运算可用于屏蔽（mask）字中的位（掩码）
+	- 选择某些位，将其他位清零
 
 > [!NOTE]- 与运算
 > `and x9, x10, x11`
 > {{< center-image src="images/pcs/2.7.2.png" alt="AND operation" width="70%" >}}
 
-2\. OR
-
-或运算可以将掩码为 1 的位设为 1，掩码为 0 的位保持原值。
+### OR Operations
+- 或运算可用于将一个字中的某些位并入（include）
+	- 将某些位设为 1，其余位保持不变
 
 > [!NOTE]- 或运算
 > `or x9, x10, x11`
 > {{< center-image src="images/pcs/2.7.3.png" alt="OR operation" width="70%" >}}
 
-3\. XOR
+### XOR Operations
+- 异或运算可以进行差异运算
+	- 将某些位翻转（0 变 1，1 变 0），其余位保持不变。
 
-异或运算可以翻转掩码为 1 的位，掩码为 0 的位保持原值。RISC-V 没有单独的 NOT 指令；将一个值与全 1 按位异或，就能得到它的按位取反结果。
+RISC-V 没有单独的 NOT 指令，可以通过与全 1 按位异或来实现取反。
 
 > [!NOTE]- 异或运算
-> 图中 `x12` 的 64 位全为 1，因此 `xor x9, x10, x12` 相当于对 `x10` 按位取反。
->
+> 图中 `x12` 的 64 位全为 1，因此下面的指令相当于对 `x10` 按位取反。
+> `xor x9, x10, x12`
 > {{< center-image src="images/pcs/2.7.4.png" alt="XOR operation" width="70%" >}}
 
-也可以直接写 `xori x9, x10, -1`。`andi`、`ori`、`xori` 的 12 位立即数与 `addi` 一样，会先符号扩展到寄存器位宽；在 RV64 中，`-1` 因而成为 64 位全 1。
+### Extensions of Immediates
+- 在 `andi`、`ori`、`xori` 等逻辑立即数指令中，12 位立即数会符号扩展到寄存器位宽；在 RV64 中扩展到 64 位。
+- 与立即数做加法运算时，立即数也会进行符号扩展。
 
 
 ## 2.7 Instructions for Making Decisions
