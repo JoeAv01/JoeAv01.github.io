@@ -565,14 +565,6 @@ imm[11:5]   rs2    rs1   funct3  imm[4:0]  opcode
 | `sd x9, 240(x10)` | S 型 | `0x0E953823` |
 {{% /tab %}}
 
-{{< tab title="课本原图" >}}
-{{< center-image src="images/pcs/2.6.5.png" alt="例题的汇编指令" width="70%" >}}
-{{< center-image src="images/pcs/2.6.6.png" alt="各指令字段的十进制值" width="70%" >}}
-{{< center-image src="images/pcs/2.6.7.png" alt="指令编码的推导说明" width="70%" >}}
-{{< center-image src="images/pcs/2.6.8.png" alt="各指令字段的二进制值" width="70%" >}}
-{{< center-image src="images/pcs/2.6.9.png" alt="最终十六进制机器码" width="70%" >}}
-{{< /tab >}}
-
 {{< /tabs >}}
 
 ### Stored Program Computers
