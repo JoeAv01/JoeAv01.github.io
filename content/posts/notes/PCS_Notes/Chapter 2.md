@@ -590,6 +590,11 @@ imm[11:5]   rs2    rs1   funct3  imm[4:0]  opcode
 ### I type Shift Operations
 - I 型移位： `slli`, `srli`, `srai`
 - immed: 移多少位
+
+下图是 RV64 移位立即数指令的格式，其中 6 位 `immed` 表示移位量。
+
+{{< center-image src="images/pcs/2.7.5.png" alt="RV64 I-type shift instruction format" width="70%" >}}
+
 ### AND Operations
 - 与运算可用于屏蔽（mask）字中的位（掩码）
 	- 选择某些位，将其他位清零
@@ -614,6 +619,7 @@ RISC-V 没有单独的 NOT 指令，可以通过与全 1 按位异或来实现�
 
 > [!NOTE]- 异或运算
 > 图中 `x12` 的 64 位全为 1，因此下面的指令相当于对 `x10` 按位取反。
+>
 > `xor x9, x10, x12`
 > {{< center-image src="images/pcs/2.7.4.png" alt="XOR operation" width="70%" >}}
 
