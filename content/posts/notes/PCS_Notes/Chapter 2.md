@@ -709,6 +709,7 @@ xor x10, x10, x11    # x10 = (a ⊕ b) ⊕ a = b
 > [!NOTE]- More Conditional Operations
 > `blt rs1, rs2, L1`
 > `if (rs1 < rs2)` branch to instruction labeled L1
+>
 > `bge rs1, rs2, L1`
 > `if (rs1 >= rs2)` branch to instruction labeled L1
 >
@@ -757,6 +758,8 @@ x23 = 0000 0000 0000 0000 0000 0000 0000 0001
 ```asm
 bgeu x20, x11, IndexOutOfBounds
 ```
+
+这里 `x20` 保存下标，`x11` 保存非负的数组长度。若下标大于或等于长度，`bgeu` 会跳转；若下标为负数，其位模式按无符号数解释后会成为很大的正数，也会触发跳转。因此这一条指令就能检查合法范围 `0 ≤ 下标 < 长度`。
 
 
 ## 2.8 Supporting Procedures in Computer Hardware
