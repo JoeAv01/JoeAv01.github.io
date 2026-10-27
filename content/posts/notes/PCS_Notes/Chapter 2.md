@@ -682,6 +682,8 @@ xor x10, x10, x11    # x10 = (a ⊕ b) ⊕ a = b
 > Else: sub x19, x20, x21
 > Exit: ...      //Assembler calculates addresses
 > ```
+>
+> `bne` 检查的是与 C 代码相反的条件：若 `i != j`，跳到 `Else` 执行减法；若 `i == j`，继续执行加法。加法完成后，无条件跳到 `Exit`，避免再执行 `Else` 中的减法。
 
 > [!NOTE]+ Compiling Loop Statements
 > C code:
@@ -699,6 +701,8 @@ xor x10, x10, x11    # x10 = (a ⊕ b) ⊕ a = b
 > beq x0, x0, Loop
 > Exit: ...
 > ```
+>
+> 前三条指令计算 `save[i]` 的地址并读取其值；左移 3 位表示每个元素占 8 字节。若读出的值不等于 `k`，`bne` 跳到 `Exit`；否则将 `i` 加 1，再跳回 `Loop` 检查下一项。
 >
 
 
@@ -724,6 +728,9 @@ xor x10, x10, x11    # x10 = (a ⊕ b) ⊕ a = b
 - 除末尾外，内部没有分支指令
 - 除开头外，内部没有分支目标
 {{< center-image src="images/pcs/2.8.1.png" alt="basic block" width="70%" >}}
+
+图中蓝色部分表示一个基本块：执行从入口开始，沿着块内指令顺序向下，直到末尾才可能转向其他位置。对照上面的例子，if 示例中的 `add x19, x20, x21` 与紧随其后的无条件跳转构成一个基本块；while 示例中，从 `Loop: slli` 到 `bne` 构成一个基本块，`addi` 和跳回 `Loop` 的指令构成另一个基本块。
+
 - 编译器会识别基本块以进行优化
 - 高级处理器可以加速基本块的执行
 
