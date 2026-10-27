@@ -732,19 +732,27 @@ xor x10, x10, x11    # x10 = (a ⊕ b) ⊕ a = b
 
 ### Signed vs. Unsigned
 - 有符号数比较: `blt`, `bge`
-- 有符号数比较: `bltu`, `bgeu`
--  Example：
+- 无符号数比较: `bltu`, `bgeu`
+
+以下以 32 位数为例，展示同一位模式在两种比较方式下的不同结果：
+
+```text
 x22 = 1111 1111 1111 1111 1111 1111 1111 1111
 x23 = 0000 0000 0000 0000 0000 0000 0000 0001
-x22 < x23 // signed   –1 < +1
-x22 > x23 // unsigned  +4,294,967,295 > +1
+
+有符号比较：x22 < x23，因为 -1 < +1
+无符号比较：x22 > x23，因为 4,294,967,295 > 1
+```
 
 边界检查的简便方法：
 - 将有符号数作为无符号数来处理，是检验 0≤x<y 的一种低开销方法，常用于检查数组的下标是否越界
 - 也检查了 x 是不是一个负数
 
-Example:
-`bgeu x20, x11, IndexOutOfBounds`
+例如：
+
+```asm
+bgeu x20, x11, IndexOutOfBounds
+```
 
 
 ## 2.8 Supporting Procedures in Computer Hardware
