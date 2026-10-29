@@ -1022,7 +1022,7 @@ jal  x0, L2
 - 恢复第一次递归的结果 `fib(n - 1)`，存入 `x6`。
 - 此时 `x10` 保存第二次递归的结果 `fib(n - 2)`。
 - 执行加法，结果保存到 `x10` 中。
-- 这里使用 `addw` 而非 `add`，是因为题目中的返回值类型为 32 位 `int`。在 RV64 中，`addw` 执行 32 位加法，并将结果符号扩展到 64 位。
+- 这里使用 `addw` 而非 `add`，是因为题目中的返回值类型为 32 位 `int`。在 RV64 中，`addw` 执行 32 位加法，并将结果符号扩展到 64 位。（ai说的）
 
 （6）`n==0` 与 `n==1` 的情况：
 ```asm
@@ -1088,88 +1088,87 @@ ABI 名称版（`x10=a0`、`x1=ra`、`x5=t0`、`x6=t1`、`x0=zero`）：
 
 ```asm
 fib:
-    addi sp, sp, -32
-    sd   ra, 24(sp)
-    sd   a0, 16(sp)
+    addi sp, sp, -32     # 分配 32 字节栈帧
+    sd   ra, 24(sp)      # 保存返回地址
+    sd   a0, 16(sp)      # 保存原始参数 n
 
-    beq  a0, zero, L0
-    addi t0, zero, 1
-    beq  a0, t0, L1
+    beq  a0, zero, L0    # n == 0 时返回 0
+    addi t0, zero, 1     # t0 = 1
+    beq  a0, t0, L1      # n == 1 时返回 1
 
-    addi a0, a0, -1
-    jal  ra, fib
-    sd   a0, 8(sp)
+    addi a0, a0, -1      # 准备参数 n - 1
+    jal  ra, fib         # 计算 fib(n - 1)
+    sd   a0, 8(sp)       # 保存第一次递归的结果
 
-    ld   a0, 16(sp)
-    addi a0, a0, -2
-    jal  ra, fib
+    ld   a0, 16(sp)      # 恢复原始参数 n
+    addi a0, a0, -2      # 准备参数 n - 2
+    jal  ra, fib         # 计算 fib(n - 2)
 
-    ld   t1, 8(sp)
-    addw a0, a0, t1
-    jal  zero, L2
+    ld   t1, 8(sp)       # 取回 fib(n - 1)
+    addw a0, a0, t1      # 合并两次递归结果
+    jal  zero, L2        # 跳到统一返回处
 
 L0:
-    addi a0, zero, 0
-    jal  zero, L2
+    addi a0, zero, 0     # 返回 0
+    jal  zero, L2        # 跳到统一返回处
 
 L1:
-    addi a0, zero, 1
+    addi a0, zero, 1     # 返回 1
 
 L2:
-    ld   ra, 24(sp)
-    addi sp, sp, 32
-    jalr zero, 0(ra)
+    ld   ra, 24(sp)      # 恢复返回地址
+    addi sp, sp, 32      # 释放栈帧
+    jalr zero, 0(ra)     # 返回调用者
 ```
 {{% /tab %}}
 
 {{< /tabs >}}
 
-> [!NOTE]- 作业 2.31
-> 已知函数 `g` 的声明为：
-> ```c
-> int g(int a, int b);
-> ```
-> 将以下 C 语言函数 `f` 转换为 RISC-V 汇编语言。
-> ```c
-> int f(int a, int b, int c, int d) {
->     return g(g(a, b), c + d);
-> }
-> ```
->
-> 答案：
-> 由于函数 `f` 内部调用了其他函数，因此属于非叶子过程。
->
-> 寄存器分配如下：
->
-> - `x10`（`a0`）：参数 `a`，也用于保存返回值。
-> - `x11`（`a1`）：参数 `b`。
-> - `x12`（`a2`）：参数 `c`。
-> - `x13`（`a3`）：参数 `d`。
-> - `x5`（`t0`）：临时保存 `c + d`。
-> - `x1`（`ra`）：保存返回地址。
-> - `x2`（`sp`）：栈指针。
->
-> 代码如下：
-> ```asm
-> f:
->     addi sp, sp, -16     // Allocate stack space
->     sd   x1, 8(sp)       // Save return address
->
->     addw x5, x12, x13    // x5 = c + d
->     sw   x5, 0(sp)       // Save c + d on stack
->
->     jal  x1, g           // Call g(a, b)
->
->     lw   x11, 0(sp)      // x11 = c + d
->     jal  x1, g           // Call g(g(a,b), c+d)
->
->     ld   x1, 8(sp)       // Restore return address
->     addi sp, sp, 16      // Pop stack
->     jalr x0, 0(x1)       // Return to caller
-> ```
->
-> 第一次调用 `g` 可能改写临时寄存器 `x5`，所以先用 `sw` 将 32 位的 `c + d` 保存到栈上。第一次调用返回后，`x10` 保存 `g(a, b)`；用 `lw` 把 `c + d` 读入 `x11`，这两个寄存器便分别保存了第二次调用所需的参数。16 字节栈帧也保持了栈指针的对齐。
->
+{{< tabs id="chapter-2-exercise-2-31" label="作业 2.31" variant="example" open="false" >}}
+
+{{% tab title="题目" %}}
+已知函数 `g` 的声明为：
+
+```c
+int g(int a, int b);
+```
+
+将以下 C 语言函数 `f` 转换为 RISC-V 汇编语言：
+
+```c
+int f(int a, int b, int c, int d) {
+    return g(g(a, b), c + d);
+}
+```
+{{% /tab %}}
+
+{{% tab title="思路" %}}
+`f` 会调用 `g`，因此是非叶子过程。参数 `a`、`b`、`c`、`d` 分别位于 `x10`–`x13`（`a0`–`a3`）；`x10` 也用于接收返回值。`x1`（`ra`）保存返回地址，`x2`（`sp`）是栈指针。
+
+先用临时寄存器 `x5`（`t0`）计算 `c + d`。第一次调用 `g` 可能改写 `x5`，所以将这个 32 位结果用 `sw` 存入栈中，同时保存 `x1`。第一次调用返回后，`x10` 保存 `g(a, b)`；用 `lw` 将 `c + d` 读入 `x11`，再调用 `g`。栈帧分配 16 字节，以保持栈指针对齐。
+{{% /tab %}}
+
+{{% tab title="汇编" %}}
+```asm
+f:
+    addi sp, sp, -16     // Allocate stack space
+    sd   x1, 8(sp)       // Save return address
+
+    addw x5, x12, x13    // x5 = c + d
+    sw   x5, 0(sp)       // Save c + d on stack
+
+    jal  x1, g           // Call g(a, b)
+
+    lw   x11, 0(sp)      // x11 = c + d
+    jal  x1, g           // Call g(g(a,b), c+d)
+
+    ld   x1, 8(sp)       // Restore return address
+    addi sp, sp, 16      // Pop stack
+    jalr x0, 0(x1)       // Return to caller
+```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 
 
