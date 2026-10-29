@@ -1149,6 +1149,8 @@ int f(int a, int b, int c, int d) {
 {{% /tab %}}
 
 {{% tab title="汇编" %}}
+寄存器编号版：
+
 ```asm
 f:
     addi sp, sp, -16     // Allocate stack space
@@ -1165,6 +1167,26 @@ f:
     ld   x1, 8(sp)       // Restore return address
     addi sp, sp, 16      // Pop stack
     jalr x0, 0(x1)       // Return to caller
+```
+
+ABI 名称版（`x10`–`x13` 为 `a0`–`a3`，`x5=t0`、`x1=ra`、`x0=zero`）：
+
+```asm
+f:
+    addi sp, sp, -16     # 分配 16 字节栈帧
+    sd   ra, 8(sp)       # 保存 f 的返回地址
+
+    addw t0, a2, a3      # t0 = c + d（32 位）
+    sw   t0, 0(sp)       # 保存 c + d，避免第一次调用覆盖它
+
+    jal  ra, g           # 调用 g(a, b)，结果返回到 a0
+
+    lw   a1, 0(sp)       # a1 = c + d，作为第二个参数
+    jal  ra, g           # 调用 g(g(a, b), c + d)
+
+    ld   ra, 8(sp)       # 恢复 f 的返回地址
+    addi sp, sp, 16      # 释放栈帧
+    jalr zero, 0(ra)     # 返回调用者，结果留在 a0
 ```
 {{% /tab %}}
 
