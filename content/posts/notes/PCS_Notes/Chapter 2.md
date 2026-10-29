@@ -776,24 +776,23 @@ bgeu x20, x11, IndexOutOfBounds
 6. 被调用过程根据返回地址返回，调用者从调用指令的下一条指令继续执行。
 
 ### Procedure Call Instructions
- 过程调用：跳转并链接（Jump and Link）
+RISC-V 通常用 `jal` 发起过程调用，用 `jalr` 返回调用者。
+
 1. 过程调用：`jal`
-```asm
-jal x1, ProcedureLabel
-```
-主要用途有
-- 保存返回地址：将下一条指令的地址存入寄存器 `x1`（`x1` 通常称为 `ra`（Return Address，返回地址寄存器））。
-- 跳转到目标地址：程序跳转到 `ProcedureLabel` 指定的目标地址继续执行。
+
+   ```asm
+   jal x1, ProcedureLabel
+   ```
+
+   `jal`（Jump and Link）将下一条指令的地址写入 `x1`，再跳转到 `ProcedureLabel`。`x1` 也称为 `ra`（Return Address，返回地址寄存器）。
 
 2. 过程返回：`jalr`
-```asm
-jalr x0, 0(x1)
-```
-- 跳转方式：与 `jal` 类似，但通过寄存器中的地址进行跳转。
-    - 此处跳转到 `x1` 中保存的地址（偏移量为 `0`）。
-- 返回地址处理：使用 `x0` 作为目标寄存器 `rd`。由于 `x0` 是恒为 `0` 的只读零寄存器，因此不会保存新的返回地址。
-- `jalr` 还可以用于计算跳转（Computed Jumps）。
-    - 例如，实现 `case/switch` 分支语句。
+
+   ```asm
+   jalr x0, 0(x1)
+   ```
+
+   `jalr` 根据寄存器 `x1` 中的地址跳转；这里的偏移量为 `0`，因此返回到 `x1` 保存的地址。目标寄存器使用 `x0`，写入 `x0` 的结果会被丢弃，不会保存新的返回地址。`jalr` 也可用于计算跳转（Computed Jumps），例如实现 `case`/`switch` 分支。
 
 
 
