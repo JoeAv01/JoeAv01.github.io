@@ -1047,6 +1047,8 @@ L2:
 {{% /tab %}}
 
 {{% tab title="完整代码" %}}
+寄存器编号版：
+
 ```asm
 fib:
     addi sp, sp, -32    // Allocate stack space
@@ -1080,6 +1082,43 @@ L2:
     ld   x1, 24(sp)     // Restore return address
     addi sp, sp, 32     // Pop stack
     jalr x0, 0(x1)      // Return to caller
+```
+
+ABI 名称版（`x10=a0`、`x1=ra`、`x5=t0`、`x6=t1`、`x0=zero`）：
+
+```asm
+fib:
+    addi sp, sp, -32
+    sd   ra, 24(sp)
+    sd   a0, 16(sp)
+
+    beq  a0, zero, L0
+    addi t0, zero, 1
+    beq  a0, t0, L1
+
+    addi a0, a0, -1
+    jal  ra, fib
+    sd   a0, 8(sp)
+
+    ld   a0, 16(sp)
+    addi a0, a0, -2
+    jal  ra, fib
+
+    ld   t1, 8(sp)
+    addw a0, a0, t1
+    jal  zero, L2
+
+L0:
+    addi a0, zero, 0
+    jal  zero, L2
+
+L1:
+    addi a0, zero, 1
+
+L2:
+    ld   ra, 24(sp)
+    addi sp, sp, 32
+    jalr zero, 0(ra)
 ```
 {{% /tab %}}
 
