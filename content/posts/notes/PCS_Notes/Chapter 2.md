@@ -1419,18 +1419,26 @@ $$\text{Offset}=80000-80020=-20 $$
 {{< center-image src="images/pcs/2.11.6.png" alt="branch offset encoding" width="70%" >}}
 红色字段表示 SB 型指令中分散存储的立即数部分，它们共同决定跳转距离。
 
-### Machine Language Decoding Example
-已知一条 RISC-V 机器指令：
-`0x00578833`
-求其对应的汇编指令。
+{{< tabs id="chapter-2-machine-language-decoding-example" label="例题：机器语言解码" variant="example" open="false" >}}
 
-先转换为二进制
+{{% tab title="题目" %}}
+已知一条 RISC-V 机器指令 `0x00578833`，求其对应的汇编指令。
+{{% /tab %}}
+
+{{% tab title="解码过程" %}}
+先转换为二进制：
+
 `0000 0000 0101 0111 1000 1000 0011 0011`
+
 根据最低 7 位的 `opcode = 0110011`，判断该指令属于 R 型指令（R-type）。
 再按照 R 型指令格式拆分：
-{{< center-image src="images/pcs/2.11.7.png" alt="R-type instruction decoding" width="70%" >}}
 
-最终推断为 `add x16, x15, x5`
+{{% asset-image src="images/pcs/2.11.7.png" alt="R 型指令字段拆解" %}}
+
+最终得到 `add x16, x15, x5`。
+{{% /tab %}}
+
+{{< /tabs >}}
 
 
 ## 2.11 Parallelism and Instructions: Synchronization
