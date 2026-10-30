@@ -1,7 +1,0 @@
-{{- $src := .Get "src" -}}
-{{- $alt := .Get "alt" | default "" -}}
-{{- with resources.Get $src -}}
-![{{ $alt }}]({{ .RelPermalink }})
-{{- else -}}
-{{- errorf "asset-image shortcode could not find %q in assets: %s" $src .Position -}}
-{{- end -}}
