@@ -1373,7 +1373,7 @@ addi x10, x10, 0x88
 > {{< center-image src="images/pcs/2.11.5.png" alt="RISC-V instruction formats" width="100%" >}}
 
 
-### Compiling Loop Statements
+### Target Addressing Example
 以下 C 代码遍历数组，直到 `save[i]` 不等于 `k`：
 
 ```c
@@ -1398,8 +1398,7 @@ Exit:
     ...
 ```
 
-### Target Addressing Example
-假设 `Loop` 位于地址 `80000`，本例每条指令占 4 字节，以下地址均按十进制表示。条件分支采用 PC 相对寻址（PC-Relative Addressing）：
+基于上面的汇编，假设 `Loop` 位于地址 `80000`，本例每条指令占 4 字节，以下地址均按十进制表示。条件分支采用 PC 相对寻址（PC-Relative Addressing）：
 
 ① `bne x9, x24, Exit`
 - 当前 PC：`80012`
