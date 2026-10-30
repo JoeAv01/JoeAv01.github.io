@@ -1363,9 +1363,14 @@ addi x10, x10, 0x88
 
 当目标超出单条 `jal` 的范围时，可以组合指令构造目标地址：对于可由 `lui` 构造的绝对地址，先用 `lui` 构造高位，再用 `jalr` 加上低 12 位；若目标相对于当前 PC，可用 `auipc` 加上 `jalr`。两种组合都要按有符号立即数处理低 12 位，并相应调整高位。
 
-### RISC-V Addressing Summary
-{{< center-image src="images/pcs/2.11.4.png" alt="RISC-V addressing modes" width="70%" >}}
-{{< center-image src="images/pcs/2.11.5.png" alt="RISC-V instruction formats" width="70%" >}}
+> [!NOTE]- 寻址方式与指令格式速查
+> 寻址方式：
+>
+> {{< center-image src="images/pcs/2.11.4.png" alt="RISC-V addressing modes" width="100%" >}}
+>
+> 指令格式：
+>
+> {{< center-image src="images/pcs/2.11.5.png" alt="RISC-V instruction formats" width="100%" >}}
 
 
 ### Machine Language Decoding
