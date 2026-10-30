@@ -1363,7 +1363,7 @@ addi x10, x10, 0x88
 
 当目标超出单条 `jal` 的范围时，可以组合指令构造目标地址：对于可由 `lui` 构造的绝对地址，先用 `lui` 构造高位，再用 `jalr` 加上低 12 位；若目标相对于当前 PC，可用 `auipc` 加上 `jalr`。两种组合都要按有符号立即数处理低 12 位，并相应调整高位。
 
-> [!NOTE]- 寻址方式与指令格式速查
+> [!NOTE]- 寻址方式与指令格式总结
 > 寻址方式：
 >
 > {{< center-image src="images/pcs/2.11.4.png" alt="RISC-V addressing modes" width="100%" >}}
@@ -1373,12 +1373,18 @@ addi x10, x10, 0x88
 > {{< center-image src="images/pcs/2.11.5.png" alt="RISC-V instruction formats" width="100%" >}}
 
 
-### Machine Language Decoding
+### Compiling Loop Statements
+以下 C 代码遍历数组，直到 `save[i]` 不等于 `k`：
+
 ```c
 while (save[i] == k)
-    i += 1;			// i in x22, k in x24, address of save in x25
+    i += 1;
 ```
-这段 C 代码编译后的 RISC-V 代码为：
+
+假设 `i` 在 `x22`、`k` 在 `x24`，数组 `save` 的基地址在 `x25`。下列代码中每个数组元素占 8 字节。
+
+对应的 RISC-V 汇编代码：
+
 ```asm
 Loop:
     slli x10, x22, 3
@@ -1392,8 +1398,9 @@ Exit:
     ...
 ```
 
-#### 目标地址寻址示例：
-RISC-V 条件分支采用 PC 相对寻址（PC-Relative Addressing）：
+### Target Addressing Example
+假设 `Loop` 位于地址 `80000`，本例每条指令占 4 字节，以下地址均按十进制表示。条件分支采用 PC 相对寻址（PC-Relative Addressing）：
+
 ① `bne x9, x24, Exit`
 - 当前 PC：`80012`
 - 目标地址：`80024`
@@ -1412,7 +1419,7 @@ $$\text{Offset}=80000-80020=-20 $$
 {{< center-image src="images/pcs/2.11.6.png" alt="branch offset encoding" width="70%" >}}
 红色字段表示 SB 型指令中分散存储的立即数部分，它们共同决定跳转距离。
 
-#### 机器指令解码：
+### Machine Language Decoding Example
 已知一条 RISC-V 机器指令：
 `0x00578833`
 求其对应的汇编指令。
