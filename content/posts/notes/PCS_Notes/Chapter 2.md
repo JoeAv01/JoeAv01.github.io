@@ -1347,23 +1347,21 @@ addi x10, x10, 0x88
 {{< /tabs >}}
 
 ### Branch Addressing
-- 条件分支指令（SB 格式）包含操作码、两个源寄存器，以及相对于当前 PC 的目标偏移量。
-- 大多数分支目标距离当前指令较近，既可能向前跳转，也可能向后跳转
-- SB format:
+条件分支指令采用 SB 格式，编码中包含操作码、两个源寄存器，以及相对于当前 PC 的偏移量。分支目标通常离当前指令较近，既可向前跳转，也可向后跳转。
+
 {{< center-image src="images/pcs/2.11.2.png" alt="RISC-V branch addressing" width="70%" >}}
-编码中的 12 位立即数字段并不连续。处理器将这些位重新组合，再补上固定为 `0` 的最低位，得到 13 位有符号分支偏移量。
-- PC 相对寻址（PC-Relative Addressing）
-	- \(\text{Target Address}=\text{PC}+\text{Immediate}\times2\)
+
+如图所示，偏移量的 12 个编码位分散在指令中。将它们按位序拼接，再在最低位补 `0`，得到 13 位有符号的字节偏移量。分支目标地址等于当前分支指令的地址（PC）加上这个偏移量；偏移量可正可负。
 
 
 ### Jump Addressing
-- `jal`（Jump and Link，UJ 格式）使用 20 位立即数字段，指定相对于当前 PC 的跳转目标，以支持更大的跳转范围。
-- UJ format:
+`jal`（Jump and Link）采用 UJ 格式。它将 20 个分散的立即数位重组，在最低位补 `0`，得到 21 位有符号偏移量；目标地址为当前 `jal` 的 PC 加上该偏移量，因此跳转范围比条件分支更大。
+
 {{< center-image src="images/pcs/2.11.3.png" alt="RISC-V jump addressing" width="70%" >}}
-- `jalr`（I 格式）使用 12 位立即数，以寄存器中的地址为基址指定跳转目标。
-- 对于超出 `jal` 跳转范围的目标，例如跳转到某个 32 位绝对地址，可以组合使用 `lui` 和 `jalr`：
-	- `lui`：将目标地址的高 20 位 `address[31:12]` 加载到临时寄存器中。
-	- `jalr`：将目标地址的低 12 位 `address[11:0]` 与临时寄存器中的值相加，并跳转到计算出的目标地址。
+
+`jalr` 采用 I 格式，以寄存器 `rs1` 为基址，加上 12 位有符号立即数，再将结果的最低位清零，作为跳转目标。它的立即数直接表示字节偏移量，不像 `jal` 和条件分支那样需要补一个最低位 `0`。
+
+当目标超出单条 `jal` 的范围时，可以组合指令构造目标地址：对于可由 `lui` 构造的绝对地址，先用 `lui` 构造高位，再用 `jalr` 加上低 12 位；若目标相对于当前 PC，可用 `auipc` 加上 `jalr`。两种组合都要按有符号立即数处理低 12 位，并相应调整高位。
 
 ### RISC-V Addressing Summary
 {{< center-image src="images/pcs/2.11.4.png" alt="RISC-V addressing modes" width="70%" >}}
