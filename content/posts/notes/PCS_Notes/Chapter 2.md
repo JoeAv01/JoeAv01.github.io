@@ -1242,65 +1242,61 @@ RISC-V 程序的内存空间通常划分为以下几个区域：
 
 ## 2.9 Communicating with People
 ### Character Data
-二进制编码字符集：
-- ASCII: 128 字符
-	- 95 可显示字符，33 控制字符
-- Latin-1: 256 characters
-	- ASCII, +96 可显示字符
+计算机以数值表示字符，不同字符集规定了数值与字符的对应关系：
 
-Unicode 是大多数人类语言中字母表的通用编码：
-- 广泛应用于 Java、C++ 宽字符等。
-- 支持世界上绝大多数语言的文字及各种符号。
-- UTF-16, UTF-32
-- UTF-8: 可变长度编码
+- ASCII 使用 7 位，共有 128 个码位，包括 95 个可显示字符和 33 个控制字符。
+- Latin-1 使用 8 位，共有 256 个码位；前 128 个与 ASCII 相同，扩展部分包含西欧文字、符号和控制码。
+
+Unicode 为多种语言的文字和符号分配统一的码位，Java、C++ 等语言都可处理 Unicode 文本。UTF-8、UTF-16 和 UTF-32 是表示这些码位的不同编码方式：UTF-8 使用 1～4 字节，UTF-16 使用 2 或 4 字节，UTF-32 使用 4 字节。
 
 ### Byte/Halfword/Word Operations
-- 有符号加载指令（Signed Load）：从内存中读取 8、16 或 32 位数据，并符号扩展至 64 位，存入目标寄存器 `rd`。
-	- `lb rd, offset(rs1)`
-	- `lh rd, offset(rs1)`
-	- `lw rd, offset(rs1)`
-- 无符号加载指令（Unsigned Load）：从内存中读取 8、16 或 32 位数据，并零扩展至 64 位，存入目标寄存器 `rd`。
-	- `lbu rd, offset(rs1)`
-	- `lhu rd, offset(rs1)`
-	- `lwu rd, offset(rs1)`
-- 存储指令（Store）：将源寄存器 `rs2` 的最低 8、16 或 32 位写入内存。
-	- `sb rs2, offset(rs1)`
-	- `sh rs2, offset(rs1)`
-	- `sw rs2, offset(rs1)`
+以 RV64 为例，加载指令从地址 `rs1 + offset` 读取数据，并将结果扩展到 64 位寄存器 `rd`：有符号加载做符号扩展，无符号加载做零扩展。存储指令则将 `rs2` 的低位写入内存，不涉及扩展。
 
-> [!NOTE]- String Copy Example
-> C code：以空字符结尾的字符串
+| 数据宽度 | 有符号加载 | 无符号加载 | 存储 |
+| --- | --- | --- | --- |
+| 字节（8 位） | `lb` | `lbu` | `sb` |
+| 半字（16 位） | `lh` | `lhu` | `sh` |
+| 字（32 位） | `lw` | `lwu` | `sw` |
+
+加载指令写作 `lb rd, offset(rs1)` 等，存储指令写作 `sb rs2, offset(rs1)` 等；两者都以 `rs1 + offset` 计算内存地址。
+
+> [!NOTE]- 字符串复制示例
+> 以下 C 函数逐字节复制以空字符 `\0` 结尾的字符串：
 >
 > ```c
 > void strcpy(char x[], char y[]) {
-> 	size_t i;
-> 	i = 0;
-> 	while ((x[i]=y[i])!='\0') {
-> 		i += 1;
-> 	}
+>     size_t i;
+>     i = 0;
+>     while ((x[i] = y[i]) != '\0') {
+>         i += 1;
+>     }
 > }
 > ```
 >
-> - Addresses of x, y in x11, x10
+> 按参数顺序，目标数组 `x` 的地址在 `x10`（`a0`），源数组 `y` 的地址在 `x11`（`a1`）。`x19` 用作索引 `i`；它属于被调用者保存的寄存器，因此先保存、返回前再恢复。
 >
-> RISC-V：
+> 对应的 RV64 汇编：
 >
 > ```asm
 > strcpy:
-> addi sp,sp,-8        // adjust stack for 2 word
-> sd x19,0(sp)         // push x19
-> add x19,x0,x0        // i=0
-> L1: add x5,x19,x10  // x5 = addr of y[i]
-> lbu x6,0(x5)        // x6 = y[i]
-> add x7,x19,x11      // x7 = addr of x[i]
-> sb x6,0(x7)         // x[i] = y[i]
-> beq x6,x0,L2        // if y[i] == 0 then exit
-> addi x19,x19,1      // i = i + 1
-> jal x0,L1           // next iteration of loop
-> L2: ld x19,0(sp)    // restore saved x19
-> addi sp,sp,8        // pop 1 doubleword
-> jalr x0,0(x1)       // and return
+>     addi sp, sp, -16     // 分配栈空间，并保持 16 字节对齐
+>     sd   x19, 0(sp)      // 保存 x19
+>     add  x19, x0, x0     // i = 0
+> L1:
+>     add  x5, x19, x11    // x5 = y[i] 的地址
+>     lbu  x6, 0(x5)       // 读取 y[i] 的一个字节
+>     add  x7, x19, x10    // x7 = x[i] 的地址
+>     sb   x6, 0(x7)       // 将该字节写入 x[i]
+>     beq  x6, x0, L2      // 若复制了空字符，结束循环
+>     addi x19, x19, 1     // i = i + 1
+>     jal  x0, L1          // 继续复制下一个字节
+> L2:
+>     ld   x19, 0(sp)      // 恢复 x19
+>     addi sp, sp, 16      // 释放栈空间
+>     jalr x0, 0(x1)       // 返回调用者
 > ```
+>
+> `lbu` 读取一个字节，`sb` 写入同一个字节；当读到 `\0` 时，代码会先复制终止符，再退出循环。
 
 
 
