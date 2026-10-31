@@ -1649,9 +1649,15 @@ L2:
 
 ## 2.13-2.18
 
-2.13 的 C 排序示例、2.14 的数组与指针、2.16 的 x86 指令和 2.17 的其他 RISC-V 指令，老师上课没有讲到，此处略去，可自行参看 PPT。以下保留 2.15 和 2.18 的简要笔记。
+### 2.13 A C Sort Example to Put It All Together
 
-### 2.15 MIPS Instructions
+这个部分老师上课没讲，此处略，可以自己看 ppt，以下部分同理。
+
+### 2.14 Arrays versus Pointers
+
+### 2.15 Real Stuff: MIPS Instructions
+
+### MIPS Instructions
 
 MIPS 是 RISC-V 的商业化前身之一，两者均采用精简指令集架构，具有相似的基本指令设计。
 
@@ -1668,9 +1674,17 @@ MIPS 和 RISC-V 在实现大小比较（`<`、`<=`、`>`、`>=`）时采用不�
 - `sltu`（Set Less Than Unsigned）：无符号比较，结果为 `0` 或 `1`。
 - `beq` / `bne`：根据比较结果是否等于 `0`，决定是否跳转。
 
+### Instruction Encoding
+
+### ARM v8 Instructions
+
+### 2.16 Real Stuff: x86 Instructions
+
+### 2.17 The Rest of the RISC-V Instruction Set
+
 ### 2.18 Fallacies and Pitfalls
 
-Fallacies（误区）：
+### Fallacies
 
 - 误区一：指令功能越强，性能越高：
 错误观点：功能更强大的指令能够减少程序所需的指令数量，因此提高性能。
@@ -1700,7 +1714,7 @@ Fallacies（误区）：
 
 结论：向后兼容并不意味着指令集不能扩展，而是要求新增指令尽可能不破坏已有指令的行为和兼容性。
 
-Pitfalls（陷阱）：
+### Pitfalls
 
 - 陷阱一：连续的字位于连续的内存地址
 错误观点：相邻的字在内存中的地址相差 `1`。
