@@ -4,7 +4,7 @@ weight: 21
 ---
 
 > [!NOTE]- 本节概览
-> 本篇介绍过程调用、字符数据、宽立即数与寻址、同步，以及程序从翻译到运行的过程；末尾简要涉及其他指令集。
+> 本节为第二章笔记的下半部分，涵盖 PPT 的 2.8 至 2.18 节。
 
 ## 2.8 Supporting Procedures in Computer Hardware
 ### Procedure Calling
