@@ -3,6 +3,9 @@ title: "Chapter 2（下）"
 weight: 21
 ---
 
+> [!NOTE]- 本节概览
+> 本篇介绍过程调用、字符数据、宽立即数与寻址、同步，以及程序从翻译到运行的过程；末尾简要涉及其他指令集。
+
 ## 2.8 Supporting Procedures in Computer Hardware
 ### Procedure Calling
 过程调用（Procedure Calling）是指调用者将控制权交给被调用过程；被调用过程执行完毕后，调用者从调用指令的下一条指令继续执行。在 RISC-V 中，参数通常放在 `x10`–`x17`，返回地址通常保存在 `x1`，结果通常放在 `x10`–`x11`。
