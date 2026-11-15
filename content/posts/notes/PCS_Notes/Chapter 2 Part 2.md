@@ -4,7 +4,7 @@ weight: 21
 ---
 
 > [!NOTE]- 本节概览
-> 本节为第二章笔记的下半部分，涵盖 PPT 的 2.8 至 2.18 节。
+> 本节为第二章笔记的下半部分，包括 PPT 的 2.8 至 2.18 节。
 
 ## 2.8 Supporting Procedures in Computer Hardware
 ### Procedure Calling
