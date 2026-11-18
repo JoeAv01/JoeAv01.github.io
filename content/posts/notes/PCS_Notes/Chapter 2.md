@@ -76,13 +76,13 @@ weight: 20
 > |             | branch on not equal (不相等时分支)       | bne x5, x6, 100 | if (x5!=x6) go to PC+100 |
 > |             | ......                             |                 |                          |
 > | **无条件跳转**   | jump and link (跳转并链接)              | jal x1, 100     | x1=PC+4; go to PC+100    |
-> |             | jump and link register (寄存器跳转并链接)  | jal x1, 100(x5) | x1=PC+4; go to x5+100    |
+> |             | jump and link register (寄存器跳转并链接)  | jalr x1, 100(x5) | x1=PC+4; go to x5+100    |
 > |             |                                    |                 |                          |
 
-这张表就是 ppt 里的，需要注意 ppt 里把 `store double word` 写成了 `sw`，实际上是 `sd`。
+这张表就是 ppt 里的，需要注意 ppt 里把 store doubleword 写成了 `sw`，实际上是 `sd`。
 
-- **字（word）**：32 位，即 4 字节。表中的 `lw`、`sw` 分别读取和存储一个字。
-- **双字（doubleword）**：64 位，即 8 字节。表中的 `ld`、`sd` 分别读取和存储一个双字；即使在 RV64 中，一个字仍是 32 位。
+- **字（Word）**：32 位，即 4 字节。表中的 `lw`、`sw` 分别读取和存储一个字。
+- **双字（Doubleword）**：64 位，即 8 字节。表中的 `ld`、`sd` 分别读取和存储一个双字；即使在 RV64 中，一个字仍是 32 位。
 - **程序计数器（PC，Program Counter）**：保存当前指令的地址，通常随指令执行顺序前进；分支或跳转指令可以改变后续执行的位置。PC 不属于前面列出的 `x0`–`x31` 整数寄存器。
 
 了解这些基本概念后，下面从最常见的算术操作开始，看看 RISC-V 指令如何完成计算。
@@ -94,18 +94,21 @@ weight: 20
 1\. Arithmetic Operations
 加减操作都使用三个操作数，所有算术运算都是这个形式，第一个是目的操作数，后两个是源操作数
 
-e.g. `add a, b, c  // a gets b + c`
+e.g.:
+```asm
+add a, b, c  // a gets b + c
+```
 
-其中//之后的是注释
+其中 `//` 之后的是注释，也可以使用 `#` 表示注释，具体以所用工具支持的语法为准。
 
 > [!TIP] 设计原则 1：简洁源于规整（Simplicity favors regularity）
 >
 > - 规整使得实现更简单
 > - 简单实现低成本下的高性能
 
-2\. R-type Instruction
+2\. R-Type Instruction
 
-R 型指令（R-type Instruction）是 RISC-V 中用于寄存器间运算的一种指令格式：它从源寄存器 `rs1`、`rs2` 读取操作数，将运算结果写入目标寄存器 `rd`。
+**R 型指令（R-Type Instruction）** 是 RISC-V 中用于寄存器间运算的一种指令格式：它从源寄存器 `rs1`、`rs2` 读取操作数，将运算结果写入目标寄存器 `rd`。
 
 ```asm
 op rd, rs1, rs2
@@ -114,23 +117,23 @@ op rd, rs1, rs2
 这里的 `op` 表示具体的运算指令名，例如 `add`。
 
 它的特点包括：
-- 这类指令不需要立即数（immediate value）、目标偏移量（target offset）、内存地址位移（memory address displacement）或内存地址来指定操作数。
-- 主要包含算术（arithmetic）、逻辑（logic）和移位（shift）指令，并且所有的操作数都存储在寄存器（registers）中
+- 这类指令不需要立即数（Immediate Value）、目标偏移量（Target Offset）、内存地址位移（Memory Address Displacement）或内存地址来指定操作数。
+- 主要包含算术（Arithmetic）、逻辑（Logic）和移位（Shift）指令，并且所有的操作数都存储在寄存器（Register）中
 - R 型指令使用操作码 `0110011`（普通整数运算）和 `0111011`（32 位字操作）。
 
 来看一个例子
 
 {{< center-image src="images/pcs/2.2.2.png" alt="R-type instruction format" width="70%" >}}
 - 这是一个 R 型指令，总长度为 32 位，分为 6 个字段
-- funct7、funct3 为功能码用于区分同类型的不同指令
-- opcode 为7位操作码
+- `funct7`、`funct3` 为功能码用于区分同类型的不同指令
+- `opcode` 为 7 位操作码
 - 箭头展示了汇编指令中的寄存器与机器码中对应字段的映射关系
 
 
 3\. Register Operands
 RISC-V 有 32 个 64 位的寄存器
-- 双字（doubleword）：64-bit data
-- 字（word）：32-bit data
+- 双字（Doubleword）：64-bit data
+- 字（Word）：32-bit data
 
 > [!TIP] 设计原则 2：更小则更快（Smaller is faster）
 >
@@ -141,7 +144,7 @@ RISC-V 有 32 个 64 位的寄存器
 >
 > `f = (g + h) - (i + j);`
 >
-> f, ..., j in x19, x20, ..., x23
+> `f`, ..., `j` in `x19`, `x20`, ..., `x23`
 >
 > Compiled RISC-V code:
 > ```asm
@@ -218,7 +221,7 @@ sd   x8, 64(x11)        // B[8] = A[i-j]，8 * 8 = 64 字节
 
 对内存中的数据进行运算，通常需要先用加载（load）指令将其读入寄存器，必要时再用存储（store）指令写回内存，因此可能需要执行更多指令。
 
-编译器会尽可能将常用的变量分配在寄存器中。寄存器数量有限时，部分变量需要暂时存入内存，这称为**溢出（spill）**。如果频繁使用的变量被溢出，之后使用它们就需要再次加载，增加指令数量和内存访问。
+编译器会尽可能将常用的变量分配在寄存器中。寄存器数量有限时，部分变量需要暂时存入内存，这称为**溢出（Spill）**。如果频繁使用的变量被溢出，之后使用它们就需要再次加载，增加指令数量和内存访问。
 
 因此，**寄存器优化非常重要！**
 
@@ -226,7 +229,7 @@ sd   x8, 64(x11)        // B[8] = A[i-j]，8 * 8 = 64 字节
 
 1\. Immediate Operands
 
-一条指令可能需要一个常量作为输入。直接写在指令中的常量称为**立即数（immediate）**。例如，`addi x22, x22, 4` 将寄存器 `x22` 的值加 4，再写回 `x22`。
+一条指令可能需要一个常量作为输入。直接写在指令中的常量称为**立即数（Immediate）**。例如，`addi x22, x22, 4` 将寄存器 `x22` 的值加 4，再写回 `x22`。
 
 RISC-V 没有单独的减立即数指令，可以用加相反数实现减法：`addi x22, x22, -4` 表示将 `x22` 的值减 4。
 
@@ -255,8 +258,8 @@ $$
 x = x_{n-1}2^{n-1} + x_{n-2}2^{n-2} + \cdots + x_1 2^1 + x_0 2^0
 $$
 - 范围为 0 ~ \(2^n-1\)
-- 最低有效位（least significant bit，LSB）：指的是最右边的位
-- 最高有效位（most significant bit，MSB）：指的是最左边的位
+- 最低有效位（Least Significant Bit，LSB）：指的是最右边的位
+- 最高有效位（Most Significant Bit，MSB）：指的是最左边的位
 
 例如，同一个数可以用不同进制表示：
 
@@ -264,7 +267,7 @@ $$
 - Binary \({00100011}_2 = 1 \times 2^5 + 1 \times 2^1 + 1 \times 2^0\)
 - Hexadecimal \(\texttt{0x23} \text{ or } {23}_{16}= 2 \times 16^1 + 3 \times 16^0\)
 
-### Conversions of numbers
+### Conversions of Numbers
 1\. 二、八、十六进制的转换：
 
 - 转换的核心是：一位八进制数对应 3 位二进制，一位十六进制数对应 4 位二进制。
@@ -313,9 +316,9 @@ $$
 4023=(4096-1)-64-8={1111\,1111\,1111}_2-{100\,0000}_2-{1000}_2 ={1111\,1011\,0111}_2 = {fb7}_{16}
 $$
 
-## 2.4 Encoding of integers
+## 2.4 Encoding of Integers
 
-### 2s-Complement Signed Integers
+### Two’s-Complement Signed Integers {#2s-complement-signed-integers}
 计算机使用补码来表示有符号整数。补码表示能实现 + 和 – 的统一：
 $$
 x = -x_{n-1}2^{n-1} + x_{n-2}2^{n-2} + \cdots + x_1 2^1 + x_0 2^0
@@ -346,15 +349,15 @@ $$ -x = \bar{x} + 1 $$
 	- +2: 0000 0010 => 0000 0000 0000 0010
 	- –2: 1111 1110 => 1111 1111 1111 1110
 -  In RISC-V
-	- lb: 对所加载的字节进行符号扩展
-	- lbu: 对所加载的字节进行零扩展
-	- addi: 对立即数进行符号扩展
-	- beq, bne: 对位移量进行符号扩展
+	- `lb`: 对所加载的字节进行符号扩展
+	- `lbu`: 对所加载的字节进行零扩展
+	- `addi`: 对立即数进行符号扩展
+	- `beq`, `bne`: 对位移量进行符号扩展
 
 除了补码，还有以下编码方式：
 
 ### Sign and Magnitude（原码）
-原码：最高位为符号位，其余位表示绝对值。
+原码（Sign and Magnitude）：最高位为符号位，其余位表示绝对值。
 - 优点：采用符号和幅值表示，容易理解
 - 缺点
 	- 0 的表示不唯一，不利于程序员编程
@@ -370,7 +373,7 @@ $$ -x = \bar{x} + 1 $$
 
 移码：通过将数加一个偏移量使其具有非负的表示形式。最小的负数用 \({00\ldots000}_2\) 表示，最大的正数用 \({11\ldots11}_2\) 表示，0 一般用 \({10\ldots00}_2\) 表示。
 
-将每一个数值加上一个偏置常数（bias），一般来说，当编码位数为 n 时，取 \(2^{n-1}\)
+将每一个数值加上一个偏置常数（Bias），一般来说，当编码位数为 n 时，取 \(2^{n-1}\)
 
 > [!NOTE]+ 例子
 > {{< center-image src="images/pcs/2.5.1.png" alt="biased representation example" width="70%" >}}
@@ -459,17 +462,17 @@ $$\boxed{-9223372036854775808\leq x6\leq-9223372036854775681}$$
 ## 2.5 Representing Instructions in the Computer
 
 ### Representing Instructions
-指令以二级制的形式编码，被称为机器码。这种指令的设计被称为指令格式。
+指令以二进制的形式编码，被称为机器码。这种指令的设计被称为指令格式。
 
 RISC-V 的指令都是 32 位的（实际上RISC-V 的压缩扩展还提供 16 位指令）
 - 使用少量格式来编码操作码、寄存器编号等。
 - 具有规整性
 
-二级制串冗长且难以阅读，通常使用十六进制进行压缩表示，每四位对应十六进制一位
+二进制串冗长且难以阅读，通常使用十六进制进行压缩表示，每四位对应十六进制一位
 如：eca86420  \(\iff\)  1110 1100 1010 1000 0110 0100 0010 0000
 
 
-### RISC-V R-format Instructions
+### RISC-V R-Format Instructions
 {{< center-image src="images/pcs/2.6.1.png" alt="RISC-V R-format" width="70%" >}}
 上图是一个 R 型指令的机器码格式。从高位到低位，各字段的含义为：
 
@@ -488,7 +491,7 @@ RISC-V 的指令都是 32 位的（实际上RISC-V 的压缩扩展还提供 16 �
 >
 > 图中的 `add x9, x20, x21` 对应 `rd=9`、`rs1=20`、`rs2=21`；`funct7=0`、`funct3=0`、`opcode=51`。将各字段按图示顺序拼接，得到机器码 `0x015A04B3`。
 
-### RISC-V I-format Instructions
+### RISC-V I-Format Instructions
 I 型格式包含一个 12 位立即数字段，常用于立即数运算和加载指令。
 {{< center-image src="images/pcs/2.6.3.png" alt="RISC-V I-format" width="70%" >}}
 
@@ -509,17 +512,17 @@ I 型格式包含一个 12 位立即数字段，常用于立即数运算和加�
 > RISC-V 选择让本节讨论的基础指令保持 32 位长度，同时使用不同的指令格式，为立即数留出足够空间。不同格式会使译码复杂化，因此各格式尽可能保持相似。
 
 
-### RISC-V S-format Instructions
+### RISC-V S-Format Instructions
 S 型指令：专门用于存储的指令格式。
 {{< center-image src="images/pcs/2.6.4.png" alt="RISC-V S-format" width="70%" >}}
 S 指令采取不同的立即数格式
-- rs1: 基址寄存器编号
-- rs2: 源操作数寄存器编号
-- immediate: 加到基地址上的偏移量
-	- 拆分立即数，以使 rs1 和 rs2 字段始终位于相同位置。保持尽可能相似的指令格式降低了硬件的复杂性。
-	- 同样，opcode 和 funct3 字段也总是保持同样的大小并在同一个位置。
+- `rs1`: 基址寄存器编号
+- `rs2`: 源操作数寄存器编号
+- `immediate`: 加到基地址上的偏移量
+	- 拆分立即数，以使 `rs1` 和 `rs2` 字段始终位于相同位置。保持尽可能相似的指令格式降低了硬件的复杂性。
+	- 同样，`opcode` 和 `funct3` 字段也总是保持同样的大小并在同一个位置。
 
-指令格式通过操作码字段中的值来区分：每个格式在第一个字段（opcode）中被分配了一组不同的操作码值，以便硬件知道如何处理指令的其余部分。
+指令格式通过操作码字段中的值来区分：每个格式在第一个字段（`opcode`）中被分配了一组不同的操作码值，以便硬件知道如何处理指令的其余部分。
 
 
 {{< tabs id="chapter-2-instruction-encoding-example" label="例题：从 C 语句到 RISC-V 机器码" variant="example" open="false" >}}
@@ -587,9 +590,9 @@ imm[11:5]   rs2    rs1   funct3  imm[4:0]  opcode
 - 逻辑右移：右移，并用 0 填充空位，`srli` 右移 i 位相当于除以 \(2^i\)（仅适用于无符号数）
 - 算术右移：右移，并用符号位填充空位
 
-### I type Shift Operations
+### I-Type Shift Operations
 - I 型移位： `slli`, `srli`, `srai`
-- immed: 移多少位
+- `immed`: 移多少位
 
 下图是 RV64 移位立即数指令的格式，其中 6 位 `immed` 表示移位量。
 
@@ -642,7 +645,7 @@ xor x10, x10, x11    # x10 = (a ⊕ b) ⊕ a = b
 
 其中 `a`、`b` 是交换前的值。利用异或的性质 `v ⊕ v = 0`、`v ⊕ 0 = v`，三条指令执行后，`x10` 保存原来的 `b`，`x11` 保存原来的 `a`。
 
-这里使用异或而不使用加减法，是为了避免加法的中间结果可能发生有符号溢出。需要注意：RISC-V 整数加减在溢出时按寄存器位宽回绕，因此加减法交换在该规则下也能成立；异或法无需涉及算术溢出。
+这里使用异或而不使用加减法，是因为加法的中间结果可能发生有符号溢出。需要注意：RISC-V 整数加减在溢出时按寄存器位宽回绕，因此加减法交换在该规则下也能成立；异或法无需涉及算术溢出。
 {{% /tab %}}
 
 {{< /tabs >}}
@@ -673,7 +676,7 @@ xor x10, x10, x11    # x10 = (a ⊕ b) ⊕ a = b
 > else f = g - h;
 > ```
 >
-> f, g, … in x19, x20, …
+> `f`, `g`, … in `x19`, `x20`, …
 >
 > After Compiling:
 > ```asm
@@ -690,7 +693,7 @@ xor x10, x10, x11    # x10 = (a ⊕ b) ⊕ a = b
 > C code:
 > `while (save[i] == k) i += 1;`
 >
-> i in x22, k in x24, address of save in x25
+> `i` in `x22`, `k` in `x24`, address of `save` in `x25`
 >
 > After Compiling:
 > ```asm
@@ -717,7 +720,7 @@ xor x10, x10, x11    # x10 = (a ⊕ b) ⊕ a = b
 > Example:
 > C code:
 >  `if (a > b) a += 1;`
-> a in x22, b in x23
+> `a` in `x22`, `b` in `x23`
 > After Compiling:
 > ```asm
 > bge x23, x22, Exit     // branch if b >= a
